@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Join Kenyan Athletes - Create Your Account</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #0b6e4f;
+      --primary-light: #0d8a63;
+      --primary-dark: #084c37;
+      --secondary: #e67e22;
+      --accent: #e74c3c;
+      --bg: #f8f9fa;
+      --error: #dc3545;
+      --error-light: rgba(220, 53, 69, 0.08);
+      --success: #28a745;
+      --warning: #ffc107;
+      --text: #111;
+      --text-light: #6b7280;
+      --border: #e6e6e6;
+      --border-focus: rgba(11, 110, 79, 0.4);
+      --shadow: 0 8px 30px rgba(3, 15, 7, 0.06);
+      --shadow-hover: 0 12px 40px rgba(3, 15, 7, 0.12);
+      --radius: 12px;
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      line-height: 1.5;
+      background-image: linear-gradient(135deg, #f5f7fa 0%, #e4efe9 100%);
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 300px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+      z-index: -1;
+    }
+
+    .card {
+      background: #fff;
+      padding: 2.5rem;
+      border-radius: var(--radius);
+      max-width: 720px;
+      width: 100%;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-5px);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-light), var(--secondary));
+    }
+
+    .card-header {
+      text-align: center;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      background: rgba(11, 110, 79, 0.1);
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+    }
+
+    .logo i {
+      font-size: 1.5rem;
+      color: var(--primary);
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    p.sub {
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+      position: relative;
+    }
+
+    .full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+      color: #333;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    label i {
+      color: var(--primary);
+      font-size: 0.8rem;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: var(--transition);
+      background-color: #fff;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(11, 110, 79, 0.1);
+      transform: translateY(-2px);
+    }
+
+    input:valid:not(:placeholder-shown) {
+      border-color: rgba(40, 167, 69, 0.3);
+    }
+
+    .input-icon {
+      position: absolute;
+      right: 1rem;
+      top: 2.5rem;
+      color: var(--text-light);
+      transition: var(--transition);
+    }
+
+    input:focus + .input-icon {
+      color: var(--primary);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 1rem;
+      border-radius: 8px;
+      border: none;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      font-size: 1rem;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn:hover {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(11, 110, 79, 0.3);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 5px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.5);
+      opacity: 0;
+      border-radius: 100%;
+      transform: scale(1, 1) translate(-50%);
+      transform-origin: 50% 50%;
+    }
+
+    .btn:focus:not(:active)::after {
+      animation: ripple 1s ease-out;
+    }
+
+    @keyframes ripple {
+      0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+      }
+      100% {
+        transform: scale(20, 20);
+        opacity: 0;
+      }
+    }
+
+    .error {
+      background: var(--error-light);
+      color: var(--error);
+      padding: 0.9rem;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      border-left: 4px solid var(--error);
+      animation: fadeIn 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .error i {
+      font-size: 1rem;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .muted {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    .small {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-top: 1.5rem;
+      text-align: center;
+    }
+
+    .small a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .small a:hover {
+      text-decoration: underline;
+      color: var(--primary-dark);
+      transform: translateX(5px);
+    }
+
+    .password-container {
+      position: relative;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-light);
+      font-size: 0.9rem;
+      transition: var(--transition);
+      z-index: 2;
+    }
+
+    .toggle-password:hover {
+      color: var(--primary);
+    }
+
+    .password-strength {
+      height: 4px;
+      margin-top: 0.5rem;
+      border-radius: 2px;
+      background-color: #eee;
+      overflow: hidden;
+    }
+
+    .password-strength-bar {
+      height: 100%;
+      width: 0%;
+      transition: width 0.3s ease, background-color 0.3s ease;
+    }
+
+    .password-strength.weak .password-strength-bar {
+      width: 33%;
+      background-color: var(--error);
+    }
+
+    .password-strength.medium .password-strength-bar {
+      width: 66%;
+      background-color: var(--warning);
+    }
+
+    .password-strength.strong .password-strength-bar {
+      width: 100%;
+      background-color: var(--success);
+    }
+
+    .password-hints {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      margin-top: 0.5rem;
+    }
+
+    .password-hint {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.25rem;
+      transition: var(--transition);
+    }
+
+    .hint-icon {
+      margin-right: 0.5rem;
+      font-size: 0.7rem;
+      transition: var(--transition);
+    }
+
+    .hint-icon.valid {
+      color: var(--success);
+    }
+
+    .hint-icon.invalid {
+      color: var(--text-light);
+    }
+
+    .form-footer {
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .benefits {
+      background: rgba(11, 110, 79, 0.05);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .benefits h3 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .benefits ul {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+    }
+
+    .benefits li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    .benefits i {
+      color: var(--success);
+      font-size: 0.8rem;
+    }
+
+    .role-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .role-option {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.75rem;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .role-option:hover {
+      border-color: var(--primary);
+      background: rgba(11, 110, 79, 0.05);
+    }
+
+    .role-option.selected {
+      border-color: var(--primary);
+      background: rgba(11, 110, 79, 0.1);
+    }
+
+    .role-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    .role-name {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* User Type Selection Styles */
+    .user-type-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .user-type-option {
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      background: #fff;
+    }
+
+    .user-type-option:hover {
+      border-color: var(--primary);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+
+    .user-type-option.selected {
+      border-color: var(--primary);
+      background: rgba(11, 110, 79, 0.05);
+      box-shadow: 0 0 0 3px rgba(11, 110, 79, 0.1);
+    }
+
+    .user-type-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .user-type-name {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .user-type-desc {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      line-height: 1.4;
+    }
+
+    /* Organization-specific fields */
+    .organization-fields {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .organization-fields.active {
+      display: block;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      
+      .card {
+        padding: 2rem 1.5rem;
+      }
+      
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .benefits ul {
+        grid-template-columns: 1fr;
+      }
+
+      .user-type-options {
+        grid-template-columns: 1fr;
+      }
+
+      body::before {
+        height: 200px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 1.5rem 1rem;
+      }
+      
+      h1 {
+        font-size: 1.3rem;
+      }
+
+      .logo {
+        font-size: 1.2rem;
+      }
+    }
+
+    /* Loading animation */
+    .loading {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      z-index: 10;
+      border-radius: var(--radius);
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .loading.active {
+      display: flex;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(11, 110, 79, 0.1);
+      border-left: 4px solid var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <main class="card" role="main">
+    <div class="loading" id="loading">
+      <div class="spinner"></div>
+      <p>Creating your account...</p>
+    </div>
+
+    <div class="card-header">
+      <div class="logo">
+        <i class="fas fa-running"></i>
+        Kenyan Athletes Hub
+      </div>
+      <h1>Join Our Community</h1>
+      <p class="sub">Start your journey with Kenya's premier athletic platform</p>
+    </div>
+
+    <div class="benefits">
+      <h3><i class="fas fa-star"></i> Why Join Kenyan Athletes Hub?</h3>
+      <ul>
+        <li><i class="fas fa-check"></i> Connect with elite athletes</li>
+        <li><i class="fas fa-check"></i> Access exclusive events</li>
+        <li><i class="fas fa-check"></i> Professional career guidance</li>
+        <li><i class="fas fa-check"></i> Sponsorship opportunities</li>
+      </ul>
+    </div>
+
+    <form action="/signup" method="POST" id="signupForm" novalidate>
+      <!-- User Type Selection -->
+      <div class="form-group full">
+        <label for="user_type"><i class="fas fa-users"></i> Account Type</label>
+        <div class="user-type-options">
+          <div class="user-type-option selected" data-value="single">
+            <div class="user-type-icon">👤</div>
+            <div class="user-type-name">Single User</div>
+            <div class="user-type-desc">For individual athletes, coaches, or sponsors</div>
+          </div>
+          <div class="user-type-option" data-value="organization">
+            <div class="user-type-icon">🏢</div>
+            <div class="user-type-name">Organization</div>
+            <div class="user-type-desc">For teams, clubs, or sports organizations</div>
+          </div>
+        </div>
+        <input type="hidden" id="user_type" name="user_type" value="single">
+      </div>
+
+      <div class="grid">
+        <div class="form-group">
+          <label for="first_name"><i class="fas fa-user"></i> First name</label>
+          <input id="first_name" name="first_name" type="text" required>
+          <span class="input-icon"><i class="fas fa-user"></i></span>
+        </div>
+
+        <div class="form-group">
+          <label for="last_name"><i class="fas fa-user"></i> Last name</label>
+          <input id="last_name" name="last_name" type="text" required>
+          <span class="input-icon"><i class="fas fa-user"></i></span>
+        </div>
+
+        <div class="form-group full">
+          <label for="email"><i class="fas fa-envelope"></i> Email</label>
+          <input id="email" name="email" type="email" required autocomplete="email">
+          <span class="input-icon"><i class="fas fa-envelope"></i></span>
+        </div>
+
+        <!-- Organization-specific fields (hidden by default) -->
+        <div class="organization-fields" id="organizationFields">
+          <div class="form-group full">
+            <label for="organization_name"><i class="fas fa-building"></i> Organization Name</label>
+            <input id="organization_name" name="organization_name" type="text">
+            <span class="input-icon"><i class="fas fa-building"></i></span>
+          </div>
+          
+          <div class="form-group">
+            <label for="organization_type"><i class="fas fa-tag"></i> Organization Type</label>
+            <select id="organization_type" name="organization_type">
+              <option value="">Select type</option>
+              <option value="team">Sports Team</option>
+              <option value="club">Athletic Club</option>
+              <option value="school">School/University</option>
+              <option value="federation">Sports Federation</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="organization_size"><i class="fas fa-users"></i> Organization Size</label>
+            <select id="organization_size" name="organization_size">
+              <option value="">Select size</option>
+              <option value="1-10">1-10 members</option>
+              <option value="11-50">11-50 members</option>
+              <option value="51-200">51-200 members</option>
+              <option value="201+">201+ members</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password"><i class="fas fa-lock"></i> Password</label>
+          <div class="password-container">
+            <input id="password" name="password" type="password" required>
+            <button type="button" class="toggle-password" id="togglePassword">👁️</button>
+          </div>
+          <div class="password-strength" id="passwordStrength">
+            <div class="password-strength-bar"></div>
+          </div>
+          <div class="password-hints" id="passwordHints">
+            <div class="password-hint">
+              <span class="hint-icon invalid" id="lengthHint">○</span>
+              <span>At least 8 characters</span>
+            </div>
+            <div class="password-hint">
+              <span class="hint-icon invalid" id="uppercaseHint">○</span>
+              <span>One uppercase letter</span>
+            </div>
+            <div class="password-hint">
+              <span class="hint-icon invalid" id="numberHint">○</span>
+              <span>One number</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword"><i class="fas fa-lock"></i> Confirm password</label>
+          <div class="password-container">
+            <input id="confirmPassword" name="confirmPassword" type="password" required>
+            <button type="button" class="toggle-password" id="toggleConfirmPassword">👁️</button>
+          </div>
+        </div>
+
+        <div class="form-group full">
+          <label for="role"><i class="fas fa-user-tag"></i> Role</label>
+          <div class="role-options">
+            <div class="role-option" data-value="athlete">
+              <div class="role-icon">🏃‍♂️</div>
+              <div class="role-name">Athlete</div>
+            </div>
+            <div class="role-option" data-value="coach">
+              <div class="role-icon">👨‍🏫</div>
+              <div class="role-name">Coach</div>
+            </div>
+            <div class="role-option" data-value="sponsor">
+              <div class="role-icon">💼</div>
+              <div class="role-name">Sponsor</div>
+            </div>
+          </div>
+          <select id="role" name="role" required style="display: none;">
+            <option value="">Select role</option>
+            <option value="athlete">Athlete</option>
+            <option value="coach">Coach</option>
+            <option value="sponsor">Sponsor</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="county"><i class="fas fa-map-marker-alt"></i> County</label>
+          <input id="county" name="county" type="text" placeholder="e.g. Nandi, Uasin Gishu, Nairobi">
+          <span class="input-icon"><i class="fas fa-map-marker-alt"></i></span>
+        </div>
+
+        <div class="form-group">
+          <label for="phone"><i class="fas fa-phone"></i> Phone (optional)</label>
+          <input id="phone" name="phone" type="tel" placeholder="+254 XXX XXX XXX">
+          <span class="input-icon"><i class="fas fa-phone"></i></span>
+        </div>
+      </div>
+
+      <div class="form-footer">
+        <button type="submit" class="btn">
+          <i class="fas fa-user-plus"></i> Create Account
+        </button>
+      </div>
+    </form>
+
+    <div class="small">
+      Already have an account? 
+      <a href="/login">
+        <i class="fas fa-sign-in-alt"></i> Sign in here
+      </a>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Password visibility toggle
+      const togglePassword = document.getElementById('togglePassword');
+      const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+      const passwordInput = document.getElementById('password');
+      const confirmPasswordInput = document.getElementById('confirmPassword');
+      
+      togglePassword.addEventListener('click', function() {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        togglePassword.textContent = type === 'password' ? '👁️' : '🔒';
+      });
+      
+      toggleConfirmPassword.addEventListener('click', function() {
+        const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        confirmPasswordInput.setAttribute('type', type);
+        toggleConfirmPassword.textContent = type === 'password' ? '👁️' : '🔒';
+      });
+      
+      // Password strength indicator
+      passwordInput.addEventListener('input', function() {
+        const password = passwordInput.value;
+        const strengthBar = document.querySelector('.password-strength-bar');
+        const strengthContainer = document.getElementById('passwordStrength');
+        
+        // Reset classes
+        strengthContainer.className = 'password-strength';
+        
+        // Check password criteria
+        const hasMinLength = password.length >= 8;
+        const hasUpperCase = /[A-Z]/.test(password);
+        const hasNumber = /[0-9]/.test(password);
+        
+        // Update hints
+        document.getElementById('lengthHint').className = hasMinLength ? 'hint-icon valid' : 'hint-icon invalid';
+        document.getElementById('uppercaseHint').className = hasUpperCase ? 'hint-icon valid' : 'hint-icon invalid';
+        document.getElementById('numberHint').className = hasNumber ? 'hint-icon valid' : 'hint-icon invalid';
+        
+        // Calculate strength
+        let strength = 0;
+        if (hasMinLength) strength++;
+        if (hasUpperCase) strength++;
+        if (hasNumber) strength++;
+        
+        // Update strength indicator
+        if (strength === 1) {
+          strengthContainer.classList.add('weak');
+        } else if (strength === 2) {
+          strengthContainer.classList.add('medium');
+        } else if (strength === 3) {
+          strengthContainer.classList.add('strong');
+        }
+      });
+
+      // Role selection
+      const roleOptions = document.querySelectorAll('.role-option');
+      const roleSelect = document.getElementById('role');
+      
+      roleOptions.forEach(option => {
+        option.addEventListener('click', function() {
+          // Remove selected class from all options
+          roleOptions.forEach(opt => opt.classList.remove('selected'));
+          
+          // Add selected class to clicked option
+          this.classList.add('selected');
+          
+          // Update the hidden select value
+          const value = this.getAttribute('data-value');
+          roleSelect.value = value;
+        });
+      });
+
+      // User Type Selection
+      const userTypeOptions = document.querySelectorAll('.user-type-option');
+      const userTypeInput = document.getElementById('user_type');
+      const organizationFields = document.getElementById('organizationFields');
+      
+      userTypeOptions.forEach(option => {
+        option.addEventListener('click', function() {
+          // Remove selected class from all options
+          userTypeOptions.forEach(opt => opt.classList.remove('selected'));
+          
+          // Add selected class to clicked option
+          this.classList.add('selected');
+          
+          // Update the hidden input value
+          const value = this.getAttribute('data-value');
+          userTypeInput.value = value;
+          
+          // Show/hide organization fields
+          if (value === 'organization') {
+            organizationFields.classList.add('active');
+          } else {
+            organizationFields.classList.remove('active');
+          }
+        });
+      });
+
+      // Form validation and submission
+      const form = document.getElementById('signupForm');
+      const loading = document.getElementById('loading');
+      
+      form.addEventListener('submit', function(e) {
+        const password = passwordInput.value;
+        const confirmPassword = confirmPasswordInput.value;
+        const userType = userTypeInput.value;
+        
+        // Check if passwords match
+        if (password !== confirmPassword) {
+          e.preventDefault();
+          alert('Passwords do not match. Please try again.');
+          confirmPasswordInput.focus();
+          return false;
+        }
+        
+        // Check if role is selected
+        if (roleSelect.value === '') {
+          e.preventDefault();
+          alert('Please select your role.');
+          return false;
+        }
+        
+        // Validate organization fields if organization is selected
+        if (userType === 'organization') {
+          const orgName = document.getElementById('organization_name').value;
+          const orgType = document.getElementById('organization_type').value;
+          
+          if (!orgName.trim()) {
+            e.preventDefault();
+            alert('Please enter your organization name.');
+            document.getElementById('organization_name').focus();
+            return false;
+          }
+          
+          if (!orgType) {
+            e.preventDefault();
+            alert('Please select your organization type.');
+            document.getElementById('organization_type').focus();
+            return false;
+          }
+        }
+        
+        // Show loading animation
+        loading.classList.add('active');
+      });
+
+      // Add input animations
+      const inputs = document.querySelectorAll('input, select');
+      inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+          this.parentElement.classList.add('focused');
+        });
+        
+        input.addEventListener('blur', function() {
+          this.parentElement.classList.remove('focused');
+        });
+      });
+    });
+  </script>
+</body>
+</html>

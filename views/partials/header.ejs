@@ -1,0 +1,145 @@
+<!-- filepath: c:\Users\Admin\Documents\Athlete App\views\partials\header.ejs -->
+<style>
+.site-header {
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #0b6e4f;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo img {
+    height: 32px;
+    width: auto;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-link {
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem;
+    transition: color 0.2s;
+}
+
+.nav-link:hover {
+    color: #0b6e4f;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.btn {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background: #0b6e4f;
+    color: white;
+    border: 1px solid #0b6e4f;
+}
+
+.btn-outline {
+    border: 1px solid #ddd;
+    color: #333;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.user-menu {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #e6f7ef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0b6e4f;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none;
+    }
+    
+    .mobile-menu-btn {
+        display: block;
+    }
+}
+</style>
+
+<header class="site-header">
+    <div class="header-container">
+        <a href="/" class="logo">
+            <img src="/images/logo.png" alt="Kenyan Athletes platform" onerror="this.style.display='none'">
+            <span>Kenyan Athletes Platform</span>
+        </a>
+
+        <nav class="nav-menu">
+            <a href="/views/athlete.html" class="nav-link">Athletes</a>
+            <a href="/views/events.html" class="nav-link">Events</a>
+            <a href="/views/achievements.ejs" class="nav-link">Achievements</a>
+            <a href="/views/ai.html" class="nav-link">AI</a>
+        </nav>
+
+        <div class="auth-buttons">
+            <% if (typeof user !== 'undefined' && user) { %>
+                <div class="user-menu">
+                    <div class="user-avatar">
+                        <%= user.firstName ? user.firstName[0].toUpperCase() : 'U' %>
+                    </div>
+                    <div class="user-name">
+                        <%= user.firstName %> <%= user.lastName %>
+                    </div>
+                    <a href="/logout" class="btn btn-outline">Logout</a>
+                </div>
+            <% } else { %>
+                <a href="/login" class="btn btn-outline">Login</a>
+                <a href="/signup" class="btn btn-primary">Sign Up</a>
+            <% } %>
+        </div>
+    </div>
+</header>

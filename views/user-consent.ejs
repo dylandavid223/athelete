@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title><%= typeof title !== 'undefined' ? title : 'Data Sharing Consent' %> • KenyanAthletes</title>
+  <style>
+    :root{
+      --bg:#f6f8fa;
+      --card:#ffffff;
+      --accent:#0b6e4f;
+      --accent-2:#ffd54b;
+      --muted:#6b7280;
+      --danger:#c0392b;
+      --radius:12px;
+      --shadow: 0 10px 30px rgba(3,15,7,0.05);
+      --glass: rgba(11,110,79,0.04);
+      --focus: 0 0 0 4px rgba(11,110,79,0.12);
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(180deg, #f8fbfb 0%, var(--bg) 60%);
+      color:#111;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:2rem;
+    }
+
+    .container{max-width:1100px;margin:0 auto}
+    .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+    .card-header{
+      padding:1.25rem;border-bottom:1px solid #eef2f5;
+      display:flex;align-items:center;justify-content:space-between;gap:1rem;
+    }
+    .title{font-size:1.15rem;font-weight:800;color:#092823}
+    .small{font-size:.92rem;color:var(--muted)}
+
+    .card-body{
+      padding:1.25rem;
+      display:grid;
+      grid-template-columns:1fr 340px;
+      gap:1rem;
+      align-items:start;
+    }
+
+    form.panel{
+      background:linear-gradient(180deg,#fff,#fcfffb);
+      padding:1.25rem;border-radius:10px;border:1px solid #f1f5f7;
+      display:flex;flex-direction:column;gap:0.75rem;
+    }
+    .panel h3{margin:0 0 .5rem;font-size:1.05rem;color:#082f29}
+    .consent-list{display:flex;flex-direction:column;gap:.6rem;margin-bottom:.75rem}
+    .consent-item{
+      display:flex;align-items:center;gap:.75rem;padding:.7rem;border-radius:10px;
+      background:linear-gradient(180deg,#fbfdfb,#f8fbfa);
+      border:1px solid #eef6f1;
+      transition:transform .12s ease, box-shadow .12s ease;
+    }
+    .consent-item:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(6,40,32,0.06)}
+    .consent-item input[type="checkbox"]{
+      width:20px;height:20px;border-radius:6px;border:1px solid #dfeee6;background:#fff;cursor:pointer;
+      appearance:none;-webkit-appearance:none;display:inline-grid;place-items:center;
+      position:relative;
+    }
+    .consent-item input[type="checkbox"]:after{
+      content:'';width:10px;height:6px;border-left:2px solid transparent;border-bottom:2px solid transparent;
+      transform:rotate(-45deg);opacity:0;transition:opacity .12s ease, transform .12s ease;
+    }
+    .consent-item input[type="checkbox"]:checked{
+      background: linear-gradient(180deg,var(--accent),#2aa86b);border-color:rgba(255,255,255,0.08);
+      box-shadow:0 6px 14px rgba(11,110,79,0.12);
+    }
+    .consent-item input[type="checkbox"]:checked:after{
+      border-left:2px solid #fff;border-bottom:2px solid #fff;opacity:1;transform:rotate(-45deg) translateY(-1px);
+    }
+    .consent-item label{flex:1;font-weight:700;color:#0a2f2a}
+
+    .consent-meta{font-size:.9rem;color:var(--muted);margin-top:.35rem}
+
+    input[type="date"], select, input[type="text"]{
+      padding:.6rem .7rem;border-radius:8px;border:1px solid #e6eef0;width:100%;
+      background:#fff;font-size:.95rem;color:#0b2b23;
+    }
+    input[type="date"]:focus, input[type="text"]:focus, select:focus{
+      outline:none;box-shadow:var(--focus);
+    }
+
+    .actions{display:flex;gap:.5rem;margin-top:.6rem}
+    .btn{padding:.62rem .95rem;border-radius:10px;border:none;cursor:pointer;font-weight:800;font-size:.94rem}
+    .btn-primary{background:var(--accent);color:#fff;box-shadow:0 8px 20px rgba(11,110,79,0.12)}
+    .btn-primary:hover{transform:translateY(-2px)}
+    .btn-outline{background:transparent;border:1px solid var(--glass);color:var(--accent)}
+    .btn-outline:hover{background:#f6fff7}
+    .btn-danger{background:var(--danger);color:#fff}
+
+    aside.side{display:flex;flex-direction:column;gap:1rem}
+    .side .panel{padding:1rem;background:#fff;border-radius:10px;border:1px solid #eef2f5}
+    .side .panel h3{margin-top:0}
+
+    table{width:100%;border-collapse:collapse;font-size:.94rem}
+    th,td{padding:.55rem .6rem;text-align:left;border-bottom:1px solid #f1f4f6;color:#1b3a37}
+    thead th{color:var(--muted);font-weight:700;font-size:.85rem;text-transform:uppercase;letter-spacing:.04em}
+    tbody tr:hover td{background:linear-gradient(90deg,#fbfffb,#fff)}
+
+    .consent-status{display:inline-flex;align-items:center;gap:.4rem;padding:.28rem .5rem;border-radius:999px;font-weight:700}
+    .consent-status.yes{background:linear-gradient(90deg,rgba(11,110,79,0.12),rgba(11,110,79,0.06));color:var(--accent)}
+    .consent-status.no{background:#fff6f6;color:var(--danger);border:1px solid rgba(192,57,43,0.06)}
+
+    .guidance .small{line-height:1.5}
+
+    /* helper small notes */
+    .empty-state{padding:.75rem;border-radius:8px;background:#fbfbfc;color:var(--muted);text-align:center}
+
+    /* responsive */
+    @media (max-width:980px){
+      .card-body{grid-template-columns:1fr;gap:1rem}
+    }
+
+    @media (max-width:480px){
+      body{padding:1rem}
+      .card-header{flex-direction:column;align-items:flex-start;gap:.5rem}
+      .actions{flex-direction:column}
+      .btn{width:100%}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="title">Data Sharing & Consent</div>
+          <div class="small">Manage which pieces of your data can be shared with coaches, sponsors and partners.</div>
+        </div>
+        <div class="small">Signed in as: <strong><%= user ? (user.firstName + ' ' + user.lastName) : 'User' %></strong></div>
+      </div>
+
+      <div class="card-body">
+        <form class="panel" action="/consent" method="POST" novalidate>
+          <h3>Grant / Update Consent</h3>
+
+          <% 
+            // helper to check granted consent
+            function has(consType){ if(!consents) return false; for(var i=0;i<consents.length;i++){ var c = consents[i]; if(c.consent_type===consType && c.granted) return true; } return false; }
+          %>
+
+          <div class="consent-list" role="list">
+            <div class="consent-item" role="listitem">
+              <input id="training_data" name="consents[]" type="checkbox" value="training_data" <%= has('training_data') ? 'checked' : '' %> />
+              <label for="training_data">Training data (workouts, schedules)</label>
+            </div>
+
+            <div class="consent-item">
+              <input id="medical_info" name="consents[]" type="checkbox" value="medical_info" <%= has('medical_info') ? 'checked' : '' %> />
+              <label for="medical_info">Medical information (injury/health reports)</label>
+            </div>
+
+            <div class="consent-item">
+              <input id="contact_info" name="consents[]" type="checkbox" value="contact_info" <%= has('contact_info') ? 'checked' : '' %> />
+              <label for="contact_info">Contact information (phone, email for sponsors/coaches)</label>
+            </div>
+
+            <div class="consent-item">
+              <input id="performance_data" name="consents[]" type="checkbox" value="performance_data" <%= has('performance_data') ? 'checked' : '' %> />
+              <label for="performance_data">Performance data (race times, analytics)</label>
+            </div>
+          </div>
+
+          <label class="small">Consent expiry (optional)</label>
+          <input type="date" name="expires_at" style="padding:.5rem;border-radius:8px;border:1px solid #e6eef0;width:100%;margin-bottom:.6rem" value="<%= typeof defaultExpiry !== 'undefined' ? defaultExpiry : '' %>" />
+
+          <div class="actions">
+            <button type="submit" class="btn btn-primary">Save Consents</button>
+            <button type="submit" name="revoke_all" value="1" class="btn btn-outline" formaction="/consent/revoke-all">Revoke all</button>
+          </div>
+
+          <p class="small" style="margin-top:.8rem">By granting consent you allow KenyanAthletes to share the selected data with authorized partners per your settings. You may revoke anytime.</p>
+        </form>
+
+        <aside class="side">
+          <div class="panel">
+            <h3>Current Consents</h3>
+            <% if (consents && consents.length) { %>
+              <table>
+                <thead>
+                  <tr><th>Type</th><th>Granted</th><th>Granted At</th><th>Expires</th><th></th></tr>
+                </thead>
+                <tbody>
+                  <% consents.forEach(function(c){ %>
+                    <tr>
+                      <td class="small"><%= c.consent_type %></td>
+                      <td>
+                        <% if (c.granted) { %>
+                          <span class="consent-status yes">Granted</span>
+                        <% } else { %>
+                          <span class="consent-status no">Not granted</span>
+                        <% } %>
+                      </td>
+                      <td class="small"><%= c.granted_at ? new Date(c.granted_at).toLocaleString() : '—' %></td>
+                      <td class="small"><%= c.expires_at ? new Date(c.expires_at).toLocaleDateString() : '—' %></td>
+                      <td>
+                        <% if (c.granted) { %>
+                          <form action="/consent/revoke" method="POST" style="display:inline">
+                            <input type="hidden" name="consent_id" value="<%= c.id %>">
+                            <button class="btn btn-outline" type="submit">Revoke</button>
+                          </form>
+                        <% } %>
+                      </td>
+                    </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+            <% } else { %>
+              <div class="empty-state">No consents granted yet.</div>
+            <% } %>
+          </div>
+
+          <div class="panel guidance">
+            <h3>Guidance</h3>
+            <div class="small">
+              - Use the checkboxes to control which data may be shared.<br>
+              - Coaches and sponsors will only see data you grant.<br>
+              - Revoked consents are recorded and processed immediately.
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <%- include('partials/footer') %>
+</body>
+</html>

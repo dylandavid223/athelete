@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <%- include('../partials/header.ejs') %>
+    
+    <div class="dashboard">
+        <h1>Admin Dashboard</h1>
+        <div class="overview">
+            <h2>Overview</h2>
+            <div class="stats">
+                <div class="stat">
+                    <h3>Total Athletes</h3>
+                    <p><%= totalAthletes %></p>
+                </div>
+                <div class="stat">
+                    <h3>Total Events</h3>
+                    <p><%= totalEvents %></p>
+                </div>
+                <div class="stat">
+                    <h3>Total Achievements</h3>
+                    <p><%= totalAchievements %></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="recent-activities">
+            <h2>Recent Activities</h2>
+            <ul>
+                <% recentActivities.forEach(activity => { %>
+                    <li><%= activity.description %> - <%= activity.date %></li>
+                <% }); %>
+            </ul>
+        </div>
+    </div>
+
+    <%- include('../partials/footer.ejs') %>
+    <script src="/js/admin.js"></script>
+</body>
+</html>

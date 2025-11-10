@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verified Professionals - Kenyan Athletes Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0b6e4f;
+            --primary-light: #0d8a63;
+            --primary-dark: #084c37;
+            --secondary: #e67e22;
+            --accent: #e74c3c;
+            --light: #f8f9fa;
+            --dark: #2c3e50;
+            --gray: #6c757d;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --accounting: #3498db;
+            --legal: #9b59b6;
+            --financial: #2ecc71;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+
+        nav a:hover, nav a.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #d35400;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(11, 110, 79, 0.8), rgba(8, 76, 55, 0.9)), url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 4rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Card Styles */
+        .card {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            padding: 1.5rem;
+            background: var(--primary);
+            color: white;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        /* Grid Layouts */
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        .grid-4 {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        /* Professional Cards */
+        .professional-card {
+            text-align: center;
+            position: relative;
+        }
+
+        .professional-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary);
+            margin: 0 auto 1rem;
+            display: block;
+        }
+
+        .professional-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .professional-title {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .professional-specialty {
+            color: var(--gray);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .verified-badge {
+            background: var(--success);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .professional-rating {
+            display: flex;
+            justify-content: center;
+            gap: 0.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .rating-star {
+            color: var(--warning);
+        }
+
+        /* Category Sections */
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #eee;
+        }
+
+        .category-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .accounting-icon {
+            background: var(--accounting);
+        }
+
+        .legal-icon {
+            background: var(--legal);
+        }
+
+        .financial-icon {
+            background: var(--financial);
+        }
+
+        .category-title {
+            font-size: 1.8rem;
+            color: var(--dark);
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .service-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .service-description {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Stats Section */
+        .stats {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 1.5rem;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Testimonials */
+        .testimonial-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .testimonial-info h4 {
+            margin-bottom: 0.2rem;
+            color: var(--dark);
+        }
+
+        .testimonial-info p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* How It Works */
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .process-steps::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: 10%;
+            right: 10%;
+            height: 3px;
+            background: var(--primary);
+            z-index: 1;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1rem;
+        }
+
+        .step-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .step-description {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--secondary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .process-steps {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .process-steps::before {
+                display: none;
+            }
+        }
+
+        /* Filter Section */
+        .filters {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            background: var(--light);
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .filter-btn:hover:not(.active) {
+            background: #e9ecef;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-running"></i>
+                    Kenyan Athletes Hub
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="/views/index.html">Home</a></li>
+                        <li><a href="/views/athlete.html">Athletes</a></li>
+                        <li><a href="/views/events.html">Events</a></li>
+                        <li><a href="/views/achivements.html">Achievements</a></li>
+                        <li><a href="/views/merch.html" class="active">Merch</a></li>
+                        <li><a href="/views/ai.html">AI</a></li>
+                       
+                    </ul>
+                </nav>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Verified Financial & Legal Professionals</h1>
+            <p>Con                nect with government-verified accountants, lawyers, and financial advisors dedicated to helping Kenyan athletes secure their financial future</p>
+            <a href="#professionals" class="btn btn-primary">Find a Professional</a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2>Professional Services for Athletes</h2>
+                <p>Specialized services tailored to the unique financial and legal needs of professional athletes</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon" style="background: var(--accounting);">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3 class="service-title">Tax Planning</h3>
+                    <p class="service-description">Strategic tax planning for domestic and international earnings, endorsements, and prize money</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon" style="background: var(--financial);">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="service-title">Investment Management</h3>
+                    <p class="service-description">Long-term wealth building strategies and portfolio management for career earnings</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon" style="background: var(--legal);">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <h3 class="service-title">Contract Review</h3>
+                    <p class="service-description">Thorough analysis of sponsorship, endorsement, and competition contracts</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon" style="background: var(--accounting);">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <h3 class="service-title">Budgeting & Cash Flow</h3>
+                    <p class="service-description">Managing irregular income streams and planning for career transitions</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon" style="background: var(--financial);">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3 class="service-title">Real Estate Investment</h3>
+                    <p class="service-description">Guidance on property acquisition and real estate portfolio development</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon" style="background: var(--legal);">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <h3 class="service-title">Estate Planning</h3>
+                    <p class="service-description">Wills, trusts, and legacy planning to protect your financial future</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section style="background: #f8f9fa;">
+        <div class="container">
+            <div class="section-header">
+                <h2>How It Works</h2>
+                <p>Simple steps to connect with verified professionals</p>
+            </div>
+            
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Create Profile</h3>
+                    <p class="step-description">Register as an athlete and complete your profile</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Find Professionals</h3>
+                    <p class="step-description">Browse verified professionals by specialty and location</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Schedule Consultation</h3>
+                    <p class="step-description">Book a free initial consultation with your chosen professional</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title">Get Expert Help</h3>
+                    <p class="step-description">Receive personalized financial or legal guidance</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Verified Professionals -->
+    <section id="professionals">
+        <div class="container">
+            <div class="section-header">
+                <h2>Verified Professionals</h2>
+                <p>Government-certified professionals with experience working with athletes</p>
+            </div>
+            
+            <!-- Filters -->
+            <div class="filters">
+                <h3 style="margin-bottom: 1rem;">Filter by Specialty</h3>
+                <div class="filter-group">
+                    <button class="filter-btn active">All Professionals</button>
+                    <button class="filter-btn">Accountants</button>
+                    <button class="filter-btn">Financial Advisors</button>
+                    <button class="filter-btn">Lawyers</button>
+                    <button class="filter-btn">Tax Specialists</button>
+                </div>
+            </div>
+            
+            <!-- Accounting Professionals -->
+            <div class="category-header">
+                <div class="category-icon accounting-icon">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <div>
+                    <h2 class="category-title">Certified Accountants</h2>
+                    <p>Specialists in athlete finances, taxation, and wealth management</p>
+                </div>
+            </div>
+            
+            <div class="grid grid-3">
+                <!-- Accountant 1 -->
+                <div class="card professional-card">
+                    <div class="card-body">
+                        <img src="/public/img/Men Portrait.jpg" alt="James Mwangi" class="professional-img">
+                        <div class="verified-badge">
+                            <i class="fas fa-shield-alt"></i> Government Verified
+                        </div>
+                        <h3 class="professional-name">James Mwangi</h3>
+                        <p class="professional-title">CPA, Tax Specialist</p>
+                        <p class="professional-specialty">Nairobi • 15 years experience</p>
+                        <div class="professional-rating">
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <span>(24 reviews)</span>
+                        </div>
+                        <p>Specializes in international taxation for athletes with endorsement deals and prize money from overseas competitions.</p>
+                        <a href="professional-profile.html" class="btn btn-primary" style="margin-top: 1rem;">View Profile</a>
+                    </div>
+                </div>
+                
+                <!-- Accountant 2 -->
+                <div class="card professional-card">
+                    <div class="card-body">
+                        <img src="/public/img/Headshot Portrait Corporate Professional Photographers In Nairobi Kenya By Antony Trivet.jpg" alt="Grace Wanjiku" class="professional-img">
+                        <div class="verified-badge">
+                            <i class="fas fa-shield-alt"></i> Government Verified
+                        </div>
+                        <h3 class="professional-name">Grace Wanjiku</h3>
+                        <p class="professional-title">CPA, Financial Planner</p>
+                        <p class="professional-specialty">Eldoret • 12 years experience</p>
+                        <div class="professional-rating">
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star-half-alt rating-star"></i>
+                            <span>(18 reviews)</span>
+                        </div>
+                        <p>Expert in budgeting for athletes with irregular income and planning for post-career transitions.</p>
+                        <a href="professional-profile.html" class="btn btn-primary" style="margin-top: 1rem;">View Profile</a>
+                    </div>
+                </div>
+                
+                <!-- Accountant 3 -->
+                <div class="card professional-card">
+                    <div class="card-body">
+                        <img src="/public/img/I spent my first pay cheque on a piece of land- Sarkodie reveals (1).jpg" alt="David Ochieng" class="professional-img">
+                        <div class="verified-badge">
+                            <i class="fas fa-shield-alt"></i> Government Verified
+                        </div>
+                        <h3 class="professional-name">David Ochieng</h3>
+                        <p class="professional-title">CPA, Investment Advisor</p>
+                        <p class="professional-specialty">Mombasa • 10 years experience</p>
+                        <div class="professional-rating">
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <span>(31 reviews)</span>
+                        </div>
+                        <p>Focuses on building sustainable investment portfolios for athletes with short career spans.</p>
+                        <a href="professional-profile.html" class="btn btn-primary" style="margin-top: 1rem;">View Profile</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Legal Professionals -->
+            <div class="category-header" style="margin-top: 4rem;">
+                <div class="category-icon legal-icon">
+                    <i class="fas fa-gavel"></i>
+                </div>
+                <div>
+                    <h2 class="category-title">Sports Lawyers</h2>
+                    <p>Legal experts in contracts, endorsements, and athlete rights</p>
+                </div>
+            </div>
+            
+            <div class="grid grid-3">
+                <!-- Lawyer 1 -->
+                <div class="card professional-card">
+                    <div class="card-body">
+                        <img src="/public/img/Headshot Portrait Corporate Professional Photographers In Nairobi Kenya By Antony Trivet (1).jpg" alt="Sarah Kamau" class="professional-img">
+                        <div class="verified-badge">
+                            <i class="fas fa-shield-alt"></i> Government Verified
+                        </div>
+                        <h3 class="professional-name">Sarah Kamau</h3>
+                        <p class="professional-title">Sports Law Specialist</p>
+                        <p class="professional-specialty">Nairobi • 14 years experience</p>
+                        <div class="professional-rating">
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <span>(27 reviews)</span>
+                        </div>
+                        <p>Specializes in endorsement deals, image rights, and contract negotiations for elite athletes.</p>
+                        <a href="professional-profile.html" class="btn btn-primary" style="margin-top: 1rem;">View Profile</a>
+                    </div>
+                </div>
+                
+                <!-- Lawyer 2 -->
+                <div class="card professional-card">
+                    <div class="card-body">
+                        <img src="/public/img/michael.jpg" alt="Michael Odhiambo" class="professional-img">
+                        <div class="verified-badge">
+                            <i class="fas fa-shield-alt"></i> Government Verified
+                        </div>
+                        <h3 class="professional-name">Michael Odhiambo</h3>
+                        <p class="professional-title">Intellectual Property Lawyer</p>
+                        <p class="professional-specialty">Kisumu • 11 years experience</p>
+                        <div class="professional-rating">
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star-half-alt rating-star"></i>
+                            <span>(19 reviews)</span>
+                        </div>
+                        <p>Expert in protecting athlete brands, trademarks, and managing licensing agreements.</p>
+                        <a href="professional-profile.html" class="btn btn-primary" style="margin-top: 1rem;">View Profile</a>
+                    </div>
+                </div>
+                
+                <!-- Lawyer 3 -->
+                <div class="card professional-card">
+                    <div class="card-body">
+                        <img src="/public/img/Headshot Portrait Corporate Professional Photographers In Nairobi Kenya By Antony Trivet.jpg" alt="Lilian Auma" class="professional-img">
+                        <div class="verified-badge">
+                            <i class="fas fa-shield-alt"></i> Government Verified
+                        </div>
+                        <h3 class="professional-name">Lilian Auma</h3>
+                        <p class="professional-title">Estate Planning Attorney</p>
+                        <p class="professional-specialty">Nakuru • 9 years experience</p>
+                        <div class="professional-rating">
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <span>(22 reviews)</span>
+                        </div>
+                        <p>Focuses on wills, trusts, and legacy planning for athletes and their families.</p>
+                        <a href="professional-profile.html" class="btn btn-primary" style="margin-top: 1rem;">View Profile</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="grid grid-4">
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Verified Professionals</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">300+</div>
+                    <div class="stat-label">Athletes Served</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">15</div>
+                    <div class="stat-label">Years Experience Average</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">4.8/5</div>
+                    <div class="stat-label">Average Rating</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2>Athlete Testimonials</h2>
+                <p>What Kenyan athletes say about our verified professionals</p>
+            </div>
+            
+            <div class="grid grid-2">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"David Ochieng helped me structure my investments after winning major marathon prizes. I now have a diversified portfolio that will secure my family's future long after my running career ends."</p>
+                    <div class="testimonial-author">
+                        <img src="/public/img/Catholic Business Profile_ Eliud Kipchoge humbly smashes Marathon World Record, says it's _heart and mind_ that win the race.jpg" alt="Eliud Kipchoge" class="testimonial-avatar">
+                        <div class="testimonial-info">
+                            <h4>Eliud Kipchoge</h4>
+                            <p>Marathon World Record Holder</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Sarah Kamau negotiated my latest endorsement deal and secured terms I never would have gotten on my own. Her expertise in sports law is invaluable for any professional athlete."</p>
+                    <div class="testimonial-author">
+                        <img src="/public/img/Olympian Faith Kipyegon’s Medal Reinstated After Controversial Ruling.jpg" alt="Faith Kipyegon" class="testimonial-avatar">
+                        <div class="testimonial-info">
+                            <h4>Faith Kipyegon</h4>
+                            <p>1500m World Record Holder</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Kenyan Athletes Hub</h3>
+                    <p>Celebrating and supporting Kenya's world-class athletes with comprehensive professional services.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="/index.html">Home</a></li>
+                        <li><a href="/athletes.html">Athletes</a></li>
+                        <li><a href="/events.html">Events</a></li>
+                        <li><a href="/achievements.html">Achievements</a></li>
+                        <li><a href="/professionals.html">Professionals</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Professional Services</h3>
+                    <p>Are you a qualified professional interested in joining our network?</p>
+                    <a href="professional-application.html" class="btn btn-primary" style="margin-top: 1rem;">Apply Now</a>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Kenyan Athletes Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple filter functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // In a real implementation, this would filter the professionals
+                    // For this demo, we'll just show an alert
+                    if(this.textContent !== 'All Professionals') {
+                        alert(`Filtering by: ${this.textContent}`);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

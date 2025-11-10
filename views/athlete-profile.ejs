@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= athlete.firstName %> <%= athlete.lastName %> | Kenyan Athletes</title>
+    <style>
+        :root {
+            --primary: #0b6e4f;
+            --secondary: #95d5b2;
+            --accent: #FFD700;
+            --dark: #1a2a6c;
+            --light: #f8f9fa;
+            --error: #dc3545;
+            --success: #28a745;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            background: var(--light);
+            color: #333;
+        }
+
+        .profile-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .profile-header {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .profile-info h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .profile-tag {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tag-specialization {
+            background: var(--primary);
+            color: white;
+        }
+
+        .tag-legend {
+            background: var(--accent);
+            color: black;
+        }
+
+        .tag-county {
+            background: var(--secondary);
+            color: var(--dark);
+        }
+
+        .profile-bio {
+            margin: 1rem 0;
+            color: #666;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .stat-title {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .achievements-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .achievement-card {
+            background: var(--light);
+            padding: 1rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .medal-gold { border-left-color: #FFD700; }
+        .medal-silver { border-left-color: #C0C0C0; }
+        .medal-bronze { border-left-color: #CD7F32; }
+
+        @media (max-width: 768px) {
+            .profile-header {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-image {
+                height: 250px;
+                width: 250px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <%- include('partials/header') %>
+
+    <div class="profile-container">
+        <div class="profile-header">
+            <img src="<%= athlete.profile_image || '/images/default-athlete.jpg' %>" 
+                 alt="<%= athlete.firstName %> <%= athlete.lastName %>"
+                 class="profile-image">
+            
+            <div class="profile-info">
+                <h1><%= athlete.firstName %> <%= athlete.lastName %></h1>
+                
+                <div>
+                    <span class="profile-tag tag-specialization"><%= athlete.specialization %></span>
+                    <% if(athlete.is_legend) { %>
+                        <span class="profile-tag tag-legend">Legend</span>
+                    <% } %>
+                    <span class="profile-tag tag-county"><%= athlete.county_origin %></span>
+                </div>
+
+                <p class="profile-bio"><%= athlete.bio %></p>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-title">Years Active</div>
+                <div class="stat-value"><%= athlete.years_active %></div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-title">Age</div>
+                <div class="stat-value">
+                    <%= new Date().getFullYear() - new Date(athlete.date_of_birth).getFullYear() %>
+                </div>
+            </div>
+            <% if(athlete.personal_records) { %>
+                <% const records = JSON.parse(athlete.personal_records) %>
+                <% Object.entries(records).forEach(([event, time]) => { %>
+                    <div class="stat-card">
+                        <div class="stat-title">Best <%= event %></div>
+                        <div class="stat-value"><%= time %></div>
+                    </div>
+                <% }) %>
+            <% } %>
+        </div>
+
+        <div class="achievements-section">
+            <h2 class="section-title">Achievements</h2>
+            <div class="achievements-grid">
+                <% if(athlete.achievements) { %>
+                    <% const achievements = JSON.parse(athlete.achievements) %>
+                    <% achievements.forEach(achievement => { %>
+                        <div class="achievement-card">
+                            <h3><%= achievement %></h3>
+                        </div>
+                    <% }) %>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>
+</body>
+</html>

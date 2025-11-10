@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title><%= user ? (user.first_name + ' ' + user.last_name) : 'User Profile' %> • KenyanAthletes</title>
+  <style>
+    :root{
+      --bg:#f4f6f8;
+      --panel:#ffffff;
+      --muted:#6b7280;
+      --accent:#0b6e4f;
+      --accent-2:#ffd700;
+      --glass: rgba(255,255,255,0.6);
+      --glass-2: rgba(11,110,79,0.06);
+      --radius:14px;
+      --shadow: 0 10px 30px rgba(3,15,7,0.06);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(180deg, #eef3f7 0%, var(--bg) 60%);
+      color:#111;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:2.5rem 1rem;
+    }
+
+    .container{max-width:1100px;margin:0 auto}
+
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.98), var(--panel));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .profile-hero{
+      display:flex;
+      gap:1.25rem;
+      padding:1.5rem;
+      align-items:center;
+      background: linear-gradient(90deg, rgba(11,110,79,0.06), rgba(255,215,0,0.02));
+      border-bottom:1px solid rgba(15,23,42,0.04);
+    }
+
+    .avatar-wrap{
+      width:120px;height:120px;border-radius:18px;flex:0 0 120px;
+      display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg,var(--accent),#2aa86b);
+      position:relative;
+      box-shadow: 0 8px 20px rgba(11,110,79,0.12);
+      overflow:hidden;
+      border:4px solid rgba(255,255,255,0.6);
+    }
+
+    .avatar-wrap img{width:100%;height:100%;object-fit:cover;display:block;border-radius:14px}
+
+    .profile-meta{flex:1;min-width:0}
+    .profile-meta h1{font-size:1.5rem;margin:0 0 6px;color:#041127}
+    .profile-meta .meta-line{color:var(--muted);font-size:0.95rem;margin-bottom:8px}
+    .badges{display:flex;gap:.5rem;flex-wrap:wrap}
+    .badge{padding:.35rem .6rem;border-radius:999px;font-weight:700;font-size:.82rem;background:var(--glass);color:#08392a;border:1px solid rgba(11,110,79,0.06)}
+    .legend-badge{background:linear-gradient(90deg,var(--accent-2),#fff);color:#111;border:none;box-shadow:0 6px 18px rgba(255,183,0,0.12)}
+
+    .hero-actions{display:flex;gap:.6rem;margin-top:.6rem}
+    .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem .9rem;border-radius:10px;text-decoration:none;font-weight:700;border:1px solid transparent;cursor:pointer}
+    .btn-primary{background:var(--accent);color:#fff}
+    .btn-outline{background:transparent;color:var(--accent);border:1px solid rgba(11,110,79,0.12)}
+    .btn-ghost{background:transparent;color:var(--muted);border:1px solid rgba(0,0,0,0.04)}
+
+    .content-grid{
+      display:grid;
+      grid-template-columns: 1fr 320px;
+      gap:1rem;
+      padding:1.25rem;
+      background:transparent;
+    }
+
+    /* left column cards */
+    .panel{background:var(--panel);border-radius:12px;padding:1rem;border:1px solid rgba(0,0,0,0.03);box-shadow:0 6px 18px rgba(3,15,7,0.03)}
+    .panel h3{margin:0 0 .75rem;font-size:1.05rem;color:#072229}
+    dl{margin:0}
+    dt{font-weight:700;color:#162b2b;margin-top:.85rem}
+    dd{margin:0;color:var(--muted);margin-bottom:.5rem}
+
+    .stats-row{display:flex;gap:0.75rem;margin-top:1rem}
+    .stat{flex:1;background:var(--glass-2);padding:.75rem;border-radius:10px;text-align:center}
+    .stat .value{font-size:1.2rem;font-weight:800;color:var(--accent)}
+    .stat .label{font-size:.85rem;color:var(--muted)}
+
+    .achievements-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.6rem;margin-top:.8rem}
+    .achievement{background:linear-gradient(180deg,#fff,#fbfdfb);padding:.6rem;border-radius:10px;border-left:4px solid #ffd54b;font-weight:600;color:#2b2b2b}
+
+    /* right sidebar */
+    aside.side{position:relative}
+    .side .panel{padding:1rem}
+    .links a{display:block;color:var(--accent);text-decoration:none;font-weight:600;margin-bottom:.5rem}
+    .small{font-size:.9rem;color:var(--muted)}
+
+    /* responsive */
+    @media (max-width:960px){
+      .content-grid{grid-template-columns:1fr}
+      .avatar-wrap{width:96px;height:96px;flex:0 0 96px}
+    }
+
+    @media (max-width:480px){
+      body{padding:1rem}
+      .avatar-wrap{width:80px;height:80px;border-radius:12px}
+      .profile-hero{padding:1rem}
+      .profile-meta h1{font-size:1.2rem}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="profile-hero">
+        <div class="avatar-wrap">
+          <% if (user && user.profile_image) { %>
+            <img src="<%= user.profile_image %>" alt="avatar">
+          <% } else { %>
+            <div style="font-size:2rem">👤</div>
+          <% } %>
+        </div>
+
+        <div class="profile-meta">
+          <h1><%= user ? (user.first_name + ' ' + user.last_name) : 'User' %></h1>
+          <div class="meta-line"><%= user ? user.role : '' %> • Member since <%= user ? new Date(user.created_at).getFullYear() : '' %></div>
+
+          <div class="badges">
+            <span class="badge"><%= user ? user.language_preference : 'english' %></span>
+            <span class="badge"><%= user ? (user.county || 'Unknown county') : 'No county' %></span>
+            <% if (user && user.is_verified) { %>
+              <span class="badge legend-badge">Verified</span>
+            <% } %>
+            <% if (athleteProfile && athleteProfile.is_legend) { %>
+              <span class="badge legend-badge">Legend Athlete</span>
+            <% } %>
+          </div>
+
+          <div class="hero-actions">
+            <a href="/profile/edit" class="btn btn-outline">Edit Profile</a>
+            <a href="/logout" class="btn btn-primary">Logout</a>
+            <% if (athleteProfile) { %>
+              <a href="/athlete/<%= athleteProfile.id %>" class="btn btn-ghost">View Athlete</a>
+            <% } %>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-grid">
+        <div>
+          <div class="panel">
+            <h3>Contact & Basic Info</h3>
+            <dl>
+              <dt>Email</dt>
+              <dd><code style="background:#f8fafb;padding:.25rem .5rem;border-radius:6px"><%= user.email %></code></dd>
+
+              <dt>Phone</dt>
+              <dd><%= user.phone || 'Not provided' %></dd>
+
+              <dt>County</dt>
+              <dd><%= user.county || 'Not provided' %></dd>
+
+              <dt>Language</dt>
+              <dd><%= user.language_preference || 'english' %></dd>
+
+              <dt>Verified</dt>
+              <dd><%= user.is_verified ? 'Yes' : 'No' %></dd>
+            </dl>
+
+            <div class="stats-row" aria-hidden="true">
+              <div class="stat">
+                <div class="value"><%= athleteProfile ? (athleteProfile.years_active || 0) : '—' %></div>
+                <div class="label">Years Active</div>
+              </div>
+              <div class="stat">
+                <div class="value">
+                  <% if (athleteProfile && athleteProfile.date_of_birth) { %>
+                    <%= new Date().getFullYear() - new Date(athleteProfile.date_of_birth).getFullYear() %>
+                  <% } else { %>—<% } %>
+                </div>
+                <div class="label">Age</div>
+              </div>
+              <div class="stat">
+                <div class="value"><%= athleteProfile ? (athleteProfile.is_legend ? '⭐' : '—') : '—' %></div>
+                <div class="label">Legend</div>
+              </div>
+            </div>
+          </div>
+
+          <% if (athleteProfile) { %>
+            <div class="panel" style="margin-top:1rem">
+              <h3>Athlete Profile</h3>
+              <strong>Specialization:</strong> <%= athleteProfile.specialization || '—' %><br>
+              <strong>County origin:</strong> <%= athleteProfile.county_origin || '—' %><br>
+              <strong>Visibility:</strong> <%= athleteProfile.profile_visibility %>
+
+              <div style="margin-top:.8rem">
+                <div class="achievements-list">
+                  <% if (athleteProfile.achievements) { %>
+                    <% try { const ach = JSON.parse(athleteProfile.achievements); ach.forEach(a => { %>
+                      <div class="achievement"><%= a %></div>
+                    <% }) } catch(e) { %>
+                      <div class="achievement"><%= athleteProfile.achievements %></div>
+                    <% } %>
+                  <% } else { %>
+                    <div class="small" style="padding:.5rem">No achievements listed yet.</div>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+          <% } %>
+
+          <div class="panel" style="margin-top:1rem">
+            <h3>Account Settings</h3>
+            <div class="small">
+              Manage your account preferences, notification settings and connected services from the settings page.
+            </div>
+            <div style="margin-top:.75rem">
+              <a href="/settings" class="btn btn-outline">Open Settings</a>
+            </div>
+          </div>
+        </div>
+
+        <aside class="side">
+          <div class="panel">
+            <h3>Quick Links</h3>
+            <div class="links">
+              <a href="/dashboard">Dashboard</a>
+              <a href="/events">My Events</a>
+              <a href="/athletes">Browse Athletes</a>
+              <a href="/support">Help & Support</a>
+            </div>
+          </div>
+
+          <div class="panel" style="margin-top:1rem">
+            <h3>Signed in as</h3>
+            <div class="small" style="margin-bottom:.5rem"><strong><%= user.email %></strong></div>
+            <div class="small">Role: <strong><%= user.role %></strong></div>
+            <div class="small" style="margin-top:.6rem">Member since <%= user ? new Date(user.created_at).toLocaleDateString() : '' %></div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+```// filepath: c:\Users\Admin\Documents\Athlete App\views\user.ejs
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title><%= user ? (user.first_name + ' ' + user.last_name) : 'User Profile' %> • KenyanAthletes</title>
+  <style>
+    :root{
+      --bg:#f4f6f8;
+      --panel:#ffffff;
+      --muted:#6b7280;
+      --accent:#0b6e4f;
+      --accent-2:#ffd700;
+      --glass: rgba(255,255,255,0.6);
+      --glass-2: rgba(11,110,79,0.06);
+      --radius:14px;
+      --shadow: 0 10px 30px rgba(3,15,7,0.06);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(180deg, #eef3f7 0%, var(--bg) 60%);
+      color:#111;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:2.5rem 1rem;
+    }
+
+    .container{max-width:1100px;margin:0 auto}
+
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.98), var(--panel));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .profile-hero{
+      display:flex;
+      gap:1.25rem;
+      padding:1.5rem;
+      align-items:center;
+      background: linear-gradient(90deg, rgba(11,110,79,0.06), rgba(255,215,0,0.02));
+      border-bottom:1px solid rgba(15,23,42,0.04);
+    }
+
+    .avatar-wrap{
+      width:120px;height:120px;border-radius:18px;flex:0 0 120px;
+      display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg,var(--accent),#2aa86b);
+      position:relative;
+      box-shadow: 0 8px 20px rgba(11,110,79,0.12);
+      overflow:hidden;
+      border:4px solid rgba(255,255,255,0.6);
+    }
+
+    .avatar-wrap img{width:100%;height:100%;object-fit:cover;display:block;border-radius:14px}
+
+    .profile-meta{flex:1;min-width:0}
+    .profile-meta h1{font-size:1.5rem;margin:0 0 6px;color:#041127}
+    .profile-meta .meta-line{color:var(--muted);font-size:0.95rem;margin-bottom:8px}
+    .badges{display:flex;gap:.5rem;flex-wrap:wrap}
+    .badge{padding:.35rem .6rem;border-radius:999px;font-weight:700;font-size:.82rem;background:var(--glass);color:#08392a;border:1px solid rgba(11,110,79,0.06)}
+    .legend-badge{background:linear-gradient(90deg,var(--accent-2),#fff);color:#111;border:none;box-shadow:0 6px 18px rgba(255,183,0,0.12)}
+
+    .hero-actions{display:flex;gap:.6rem;margin-top:.6rem}
+    .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem .9rem;border-radius:10px;text-decoration:none;font-weight:700;border:1px solid transparent;cursor:pointer}
+    .btn-primary{background:var(--accent);color:#fff}
+    .btn-outline{background:transparent;color:var(--accent);border:1px solid rgba(11,110,79,0.12)}
+    .btn-ghost{background:transparent;color:var(--muted);border:1px solid rgba(0,0,0,0.04)}
+
+    .content-grid{
+      display:grid;
+      grid-template-columns: 1fr 320px;
+      gap:1rem;
+      padding:1.25rem;
+      background:transparent;
+    }
+
+    /* left column cards */
+    .panel{background:var(--panel);border-radius:12px;padding:1rem;border:1px solid rgba(0,0,0,0.03);box-shadow:0 6px 18px rgba(3,15,7,0.03)}
+    .panel h3{margin:0 0 .75rem;font-size:1.05rem;color:#072229}
+    dl{margin:0}
+    dt{font-weight:700;color:#162b2b;margin-top:.85rem}
+    dd{margin:0;color:var(--muted);margin-bottom:.5rem}
+
+    .stats-row{display:flex;gap:0.75rem;margin-top:1rem}
+    .stat{flex:1;background:var(--glass-2);padding:.75rem;border-radius:10px;text-align:center}
+    .stat .value{font-size:1.2rem;font-weight:800;color:var(--accent)}
+    .stat .label{font-size:.85rem;color:var(--muted)}
+
+    .achievements-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.6rem;margin-top:.8rem}
+    .achievement{background:linear-gradient(180deg,#fff,#fbfdfb);padding:.6rem;border-radius:10px;border-left:4px solid #ffd54b;font-weight:600;color:#2b2b2b}
+
+    /* right sidebar */
+    aside.side{position:relative}
+    .side .panel{padding:1rem}
+    .links a{display:block;color:var(--accent);text-decoration:none;font-weight:600;margin-bottom:.5rem}
+    .small{font-size:.9rem;color:var(--muted)}
+
+    /* responsive */
+    @media (max-width:960px){
+      .content-grid{grid-template-columns:1fr}
+      .avatar-wrap{width:96px;height:96px;flex:0 0 96px}
+    }
+
+    @media (max-width:480px){
+      body{padding:1rem}
+      .avatar-wrap{width:80px;height:80px;border-radius:12px}
+      .profile-hero{padding:1rem}
+      .profile-meta h1{font-size:1.2rem}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="profile-hero">
+        <div class="avatar-wrap">
+          <% if (user && user.profile_image) { %>
+            <img src="<%= user.profile_image %>" alt="avatar">
+          <% } else { %>
+            <div style="font-size:2rem">👤</div>
+          <% } %>
+        </div>
+
+        <div class="profile-meta">
+          <h1><%= user ? (user.first_name + ' ' + user.last_name) : 'User' %></h1>
+          <div class="meta-line"><%= user ? user.role : '' %> • Member since <%= user ? new Date(user.created_at).getFullYear() : '' %></div>
+
+          <div class="badges">
+            <span class="badge"><%= user ? user.language_preference : 'english' %></span>
+            <span class="badge"><%= user ? (user.county || 'Unknown county') : 'No county' %></span>
+            <% if (user && user.is_verified) { %>
+              <span class="badge legend-badge">Verified</span>
+            <% } %>
+            <% if (athleteProfile && athleteProfile.is_legend) { %>
+              <span class="badge legend-badge">Legend Athlete</span>
+            <% } %>
+          </div>
+
+          <div class="hero-actions">
+            <a href="/profile/edit" class="btn btn-outline">Edit Profile</a>
+            <a href="/logout" class="btn btn-primary">Logout</a>
+            <% if (athleteProfile) { %>
+              <a href="/athlete/<%= athleteProfile.id %>" class="btn btn-ghost">View Athlete</a>
+            <% } %>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-grid">
+        <div>
+          <div class="panel">
+            <h3>Contact & Basic Info</h3>
+            <dl>
+              <dt>Email</dt>
+              <dd><code style="background:#f8fafb;padding:.25rem .5rem;border-radius:6px"><%= user.email %></code></dd>
+
+              <dt>Phone</dt>
+              <dd><%= user.phone || 'Not provided' %></dd>
+
+              <dt>County</dt>
+              <dd><%= user.county || 'Not provided' %></dd>
+
+              <dt>Language</dt>
+              <dd><%= user.language_preference || 'english' %></dd>
+
+              <dt>Verified</dt>
+              <dd><%= user.is_verified ? 'Yes' : 'No' %></dd>
+            </dl>
+
+            <div class="stats-row" aria-hidden="true">
+              <div class="stat">
+                <div class="value"><%= athleteProfile ? (athleteProfile.years_active || 0) : '—' %></div>
+                <div class="label">Years Active</div>
+              </div>
+              <div class="stat">
+                <div class="value">
+                  <% if (athleteProfile && athleteProfile.date_of_birth) { %>
+                    <%= new Date().getFullYear() - new Date(athleteProfile.date_of_birth).getFullYear() %>
+                  <% } else { %>—<% } %>
+                </div>
+                <div class="label">Age</div>
+              </div>
+              <div class="stat">
+                <div class="value"><%= athleteProfile ? (athleteProfile.is_legend ? '⭐' : '—') : '—' %></div>
+                <div class="label">Legend</div>
+              </div>
+            </div>
+          </div>
+
+          <% if (athleteProfile) { %>
+            <div class="panel" style="margin-top:1rem">
+              <h3>Athlete Profile</h3>
+              <strong>Specialization:</strong> <%= athleteProfile.specialization || '—' %><br>
+              <strong>County origin:</strong> <%= athleteProfile.county_origin || '—' %><br>
+              <strong>Visibility:</strong> <%= athleteProfile.profile_visibility %>
+
+              <div style="margin-top:.8rem">
+                <div class="achievements-list">
+                  <% if (athleteProfile.achievements) { %>
+                    <% try { const ach = JSON.parse(athleteProfile.achievements); ach.forEach(a => { %>
+                      <div class="achievement"><%= a %></div>
+                    <% }) } catch(e) { %>
+                      <div class="achievement"><%= athleteProfile.achievements %></div>
+                    <% } %>
+                  <% } else { %>
+                    <div class="small" style="padding:.5rem">No achievements listed yet.</div>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+          <% } %>
+
+          <div class="panel" style="margin-top:1rem">
+            <h3>Account Settings</h3>
+            <div class="small">
+              Manage your account preferences, notification settings and connected services from the settings page.
+            </div>
+            <div style="margin-top:.75rem">
+              <a href="/settings" class="btn btn-outline">Open Settings</a>
+            </div>
+          </div>
+        </div>
+
+        <aside class="side">
+          <div class="panel">
+            <h3>Quick Links</h3>
+            <div class="links">
+              <a href="/dashboard">Dashboard</a>
+              <a href="/events">My Events</a>
+              <a href="/athletes">Browse Athletes</a>
+              <a href="/support">Help & Support</a>
+            </div>
+          </div>
+
+          <div class="panel" style="margin-top:1rem">
+            <h3>Signed in as</h3>
+            <div class="small" style="margin-bottom:.5rem"><strong><%= user.email %></strong></div>
+            <div class="small">Role: <strong><%= user.role %></strong></div>
+            <div class="small" style="margin-top:.6rem">Member since <%= user ? new Date(user.created_at).toLocaleDateString() : '' %></div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= (typeof title !== 'undefined' ? title : 'KenyanAthletes - Celebrating Kenya\'s Running Legacy') %></title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        :root { --kenya-green:#006600; --kenya-red:#FF0000; --kenya-black:#000; --kenya-gold:#FFD700; --kenya-dark:#1a2a6c; --kenya-light:#fdbb2d; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height:1.6; color:#333; background: linear-gradient(135deg,#f8f9fa 0%,#e9ecef 100%); overflow-x:hidden; }
+        header { background: linear-gradient(135deg,var(--kenya-black),var(--kenya-dark)); color:white; padding:1rem 0; position:fixed; width:100%; top:0; z-index:1000; box-shadow:0 4px 20px rgba(0,0,0,0.1); backdrop-filter: blur(10px); }
+        .nav-container { max-width:1400px; margin:0 auto; padding:0 2rem; display:flex; justify-content:space-between; align-items:center; }
+        .logo { font-size:2.2rem; font-weight:bold; display:flex; align-items:center; gap:0.8rem; }
+        .logo-icon{font-size:2.8rem}
+        .logo-text{font-weight:800}
+        .nav-links { display:flex; list-style:none; gap:2.5rem; }
+        .nav-links a { color:white; text-decoration:none; font-weight:600; padding:0.7rem 1.2rem; border-radius:8px; position:relative; }
+        .nav-links a::after { content:''; position:absolute; bottom:0; left:50%; width:0; height:2px; background:var(--kenya-gold); transition:all .3s; transform:translateX(-50%); }
+        .nav-links a:hover::after { width:80%; }
+        .nav-links a:hover { color:var(--kenya-gold); }
+        .auth-buttons { display:flex; gap:1.2rem; align-items:center; }
+        .btn { padding:0.8rem 1.8rem; border-radius:30px; cursor:pointer; font-weight:600; text-decoration:none; display:inline-block; text-align:center; transition:all .3s; font-size:1rem; position:relative; overflow:hidden; }
+        .btn-outline { background:transparent; border:2px solid var(--kenya-gold); color:var(--kenya-gold); }
+        .btn-primary { background: linear-gradient(135deg,var(--kenya-red),#ff6b6b); color:white; border:2px solid transparent; }
+        .hero { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,102,0,0.3)), url(''); background-size:cover; background-position:center; color:#333; text-align:center; padding:12rem 2rem 8rem; min-height:100vh; display:flex; align-items:center; justify-content:center; }
+        .hero-content { max-width:900px; margin:0 auto; text-align:center; }
+        .hero h1 { font-size:4.5rem; margin-bottom:1.5rem; font-weight:800; line-height:1.1; color:#000; text-shadow: 2px 2px 4px rgba(255,255,255,0.8); }
+        .hero-subtitle { font-size:1.8rem; margin-bottom:2rem; color:#222; font-weight:400; text-shadow: 1px 1px 3px rgba(255,255,255,0.8); }
+        .hero-description { font-size:1.3rem; margin-bottom:3rem; color:#333; max-width:600px; margin-left:auto; margin-right:auto; text-shadow: 1px 1px 2px rgba(255,255,255,0.8); }
+        .hero-buttons { display:flex; gap:1.5rem; justify-content:center; flex-wrap:wrap; }
+        .scroll-indicator { position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); color:var(--kenya-gold); font-size:2rem; animation:bounce 2s infinite; }
+
+        @keyframes bounce { 0%,20%,50%,80%,100%{transform:translateX(-50%) translateY(0)} 40%{transform:translateX(-50%) translateY(-10px)} 60%{transform:translateX(-50%) translateY(-5px)} }
+        /* Stats Bar */
+        .stats-bar {
+            background: linear-gradient(135deg, var(--kenya-black), var(--kenya-dark));
+            color: white;
+            padding: 3rem 2rem;
+            position: relative;
+        }
+
+        .stats-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 1.5rem;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: var(--kenya-gold);
+            display: block;
+            margin-bottom: 0.5rem;
+            font-family: 'Arial Black', sans-serif;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            color: #bdc3c7;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 8rem 2rem;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--kenya-black);
+            position: relative;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.3rem;
+            color: #7f8c8d;
+            margin-bottom: 5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 120px;
+            height: 5px;
+            background: linear-gradient(135deg, var(--kenya-red), var(--kenya-gold));
+            margin: 1.5rem auto;
+            border-radius: 3px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid #f1f2f6;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, var(--kenya-red), var(--kenya-gold));
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            display: block;
+            background: linear-gradient(135deg, var(--kenya-red), var(--kenya-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .feature-title {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: var(--kenya-black);
+            font-weight: 700;
+        }
+
+        .feature-description {
+            color: #5d6d7e;
+            line-height: 1.7;
+        }
+
+        /* Athletes Preview */
+        .athletes-preview {
+            background: linear-gradient(135deg, var(--kenya-dark), var(--kenya-black));
+            color: white;
+            padding: 8rem 2rem;
+            position: relative;
+        }
+
+        .athletes-preview .section-title {
+            color: white;
+        }
+
+        .athletes-preview .section-title::after {
+            background: var(--kenya-gold);
+        }
+
+        .athletes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 4rem auto 0;
+        }
+
+        .athlete-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .athlete-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .athlete-header {
+            padding: 2rem;
+            text-align: center;
+            background: rgba(0,0,0,0.3);
+        }
+
+        .athlete-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--kenya-red), var(--kenya-gold));
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .athlete-name {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .athlete-specialty {
+            background: var(--kenya-gold);
+            color: var(--kenya-black);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .athlete-info {
+            padding: 1.5rem;
+        }
+
+        .athlete-achievement {
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--kenya-red), var(--kenya-dark));
+            color: white;
+            text-align: center;
+            padding: 8rem 2rem;
+            position: relative;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+        }
+
+        .cta-description {
+            font-size: 1.4rem;
+            margin-bottom: 3rem;
+            opacity: 0.95;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--kenya-black);
+            color: white;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            color: var(--kenya-gold);
+            font-size: 1.3rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--kenya-gold);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #34495e;
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+
+        .kenya-flag {
+            display: inline-block;
+            width: 20px;
+            height: 15px;
+            background: linear-gradient(to bottom, 
+                var(--kenya-black) 0%, var(--kenya-black) 33%, 
+                var(--kenya-red) 33%, var(--kenya-red) 66%, 
+                var(--kenya-green) 66%, var(--kenya-green) 100%);
+            margin-right: 0.5rem;
+            border-radius: 2px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.4rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .features-grid,
+            .athletes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .stagger-animation > * {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .stagger-animation > *:nth-child(1) { animation-delay: 0.1s; }
+        .stagger-animation > *:nth-child(2) { animation-delay: 0.2s; }
+        .stagger-animation > *:nth-child(3) { animation-delay: 0.3s; }
+        .stagger-animation > *:nth-child(4) { animation-delay: 0.4s; }
+        .stagger-animation > *:nth-child(5) { animation-delay: 0.5s; }
+        .stagger-animation > *:nth-child(6) { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <% try { %>
+      <%- include('partials/header') %>
+    <% } catch(e) { %>
+      <header>
+        <div class="nav-container">
+          <div class="logo">
+            <span class="logo-icon">🏃‍♂️</span>
+            <span class="logo-text">Kenyan Athletes Platform</span>
+          </div>
+
+          <nav>
+            <ul class="nav-links">
+              <li><a href="#features">Features</a></li>
+              <li><a href="/athletes">Athletes</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </nav>
+
+          <div class="auth-buttons">
+            <% if (typeof user !== 'undefined' && user) { %>
+              <span style="color:#fff;margin-right:0.75rem">Hello, <%= user.firstName || user.first_name || user.username %></span>
+              <a href="/logout" class="btn btn-outline">Logout</a>
+            <% } else { %>
+              <a href="/login" class="btn btn-outline">Login</a>
+              <a href="/signup" class="btn btn-primary">Get Started</a>
+            <% } %>
+          </div>
+        </div>
+      </header>
+    <% } %>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero fade-in" id="home-hero">
+            <div class="hero-content">
+                <h1>Where Kenyan Running Legends Are Born</h1>
+                <div class="hero-subtitle">Celebrating Excellence • Connecting Talent • Building Legacy</div>
+                <p class="hero-description">
+                    Join the premier platform dedicated to Kenyan athletics. Discover rising stars,
+                    connect with sponsors, and be part of the journey that continues to dominate world running.
+                </p>
+                <div class="hero-buttons">
+                    <% if (typeof user !== 'undefined' && user) { %>
+                      <a href="/dashboard" class="btn btn-primary btn-large">Go to Dashboard</a>
+                    <% } else { %>
+                      <a href="/signup" class="btn btn-primary btn-large">Start Your Journey</a>
+                      <a href="/login" class="btn btn-outline btn-large">Sign In</a>
+                    <% } %>
+                    <a href="#features" class="btn btn-outline btn-large">Explore Platform</a>
+                </div>
+            </div>
+            <div class="scroll-indicator">⌄</div>
+        </section>
+
+        <!-- Stats Bar -->
+        <section class="stats-bar">
+            <div class="stats-grid stagger-animation">
+                <div class="stat-item">
+                    <span class="stat-number" data-target="50">0</span>
+                    <span class="stat-label">Elite Athletes</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="200">0</span>
+                    <span class="stat-label">Gold Medals</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="1000">0</span>
+                    <span class="stat-label">Events Tracked</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="25">0</span>
+                    <span class="stat-label">World Records</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="features">
+            <h2 class="section-title fade-in">Why Choose KenyanAthletes?</h2>
+            <p class="section-subtitle fade-in">The complete ecosystem for Kenyan athletic talent development and recognition</p>
+            
+            <div class="features-grid stagger-animation">
+                <div class="feature-card">
+                    <span class="feature-icon">👥</span>
+                    <h3 class="feature-title">Athlete Profiles</h3>
+                    <p class="feature-description">
+                        Comprehensive profiles showcasing achievements, records, and career progression 
+                        of Kenya's finest athletes with verified data and performance metrics.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">🤝</span>
+                    <h3 class="feature-title">Sponsor Connections</h3>
+                    <p class="feature-description">
+                        Direct platform connecting talented athletes with potential sponsors and 
+                        support teams looking to invest in Kenyan running excellence.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">📊</span>
+                    <h3 class="feature-title">Performance Analytics</h3>
+                    <p class="feature-description">
+                        Advanced tracking and analytics for training progress, race performance, 
+                        and achievement milestones with detailed insights and recommendations.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">🌍</span>
+                    <h3 class="feature-title">Global Exposure</h3>
+                    <p class="feature-description">
+                        International platform visibility putting Kenyan talent on the world stage 
+                        with media coverage and global recognition opportunities.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">🏆</span>
+                    <h3 class="feature-title">Achievement Tracking</h3>
+                    <p class="feature-description">
+                        Comprehensive medal and record tracking system celebrating every milestone 
+                        from local competitions to international championships.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">💼</span>
+                    <h3 class="feature-title">Career Development</h3>
+                    <p class="feature-description">
+                        End-to-end career support including training resources, competition 
+                        opportunities, and professional development guidance.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Athletes Preview -->
+        <section id="athletes" class="athletes-preview">
+            <h2 class="section-title fade-in">Meet Our Champions</h2>
+            <p class="section-subtitle fade-in">Discover the athletes who are writing Kenya's running history</p>
+            
+            <div class="athletes-grid stagger-animation">
+                <div class="athlete-card">
+                    <div class="athlete-header">
+                        <div class="athlete-avatar">EK</div>
+                        <h3 class="athlete-name">Eliud Kipchoge</h3>
+                        <div class="athlete-specialty">Marathon</div>
+                    </div>
+                    <div class="athlete-info">
+                        <div class="athlete-achievement">🥇 Olympic Gold Medalist</div>
+                        <div class="athlete-achievement">🌍 World Record Holder</div>
+                        <div class="athlete-achievement">⚡ First Sub-2 Hour Marathon</div>
+                    </div>
+                </div>
+                
+                <div class="athlete-card">
+                    <div class="athlete-header">
+                        <div class="athlete-avatar">DR</div>
+                        <h3 class="athlete-name">David Rudisha</h3>
+                        <div class="athlete-specialty">800m</div>
+                    </div>
+                    <div class="athlete-info">
+                        <div class="athlete-achievement">🥇 Olympic Champion</div>
+                        <div class="athlete-achievement">🌍 World Record Holder</div>
+                        <div class="athlete-achievement">⭐ Two-Time Olympic Gold</div>
+                    </div>
+                </div>
+                
+                <div class="athlete-card">
+                    <div class="athlete-header">
+                        <div class="athlete-avatar">FK</div>
+                        <h3 class="athlete-name">Faith Kipyegon</h3>
+                        <div class="athlete-specialty">1500m</div>
+                    </div>
+                    <div class="athlete-info">
+                        <div class="athlete-achievement">🥇 Olympic Gold Medalist</div>
+                        <div class="athlete-achievement">🌍 World Record Holder</div>
+                        <div class="athlete-achievement">🏆 World Champion</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 4rem;">
+                <a href="/athletes" class="btn btn-primary btn-large">View All Athletes</a>
+            </div>
+        </section>
+
+        <!-- Final CTA -->
+        <section class="cta-section" id="cta">
+            <div class="cta-content fade-in">
+                <h2 class="cta-title">Ready to Join Kenya's Running Revolution?</h2>
+                <p class="cta-description">
+                    Whether you're an athlete, coach, sponsor, or fan, there's a place for you
+                    in the KenyanAthletes community.
+                </p>
+                <div class="hero-buttons">
+                    <% if (typeof user !== 'undefined' && user) { %>
+                      <a href="/dashboard" class="btn btn-primary btn-large">Dashboard</a>
+                    <% } else { %>
+                      <a href="/signup" class="btn btn-primary btn-large">Create Account</a>
+                      <a href="/login" class="btn btn-outline btn-large">Sign In</a>
+                    <% } %>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>KenyanAthletes</h3>
+                    <p style="color: #bdc3c7; line-height: 1.6;">
+                        <span class="kenya-flag"></span>
+                        Empowering Kenyan athletic talent and celebrating running excellence 
+                        on the global stage since 2024.
+                    </p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Platform</h3>
+                    <ul class="footer-links">
+                        <li><a href="#features">📊 Features</a></li>
+                        <li><a href="/athletes">👥 Athletes</a></li>
+                        <li><a href="/events">📅 Events</a></li>
+                        <li><a href="/achievements">🏆 Achievements</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">📞 Contact Us</a></li>
+                        <li><a href="#">❓ Help Center</a></li>
+                        <li><a href="#">📄 Privacy Policy</a></li>
+                        <li><a href="#">⚖️ Terms of Service</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">🐦 Twitter</a></li>
+                        <li><a href="#">📘 Facebook</a></li>
+                        <li><a href="#">📷 Instagram</a></li>
+                        <li><a href="#">▶️ YouTube</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Kenyan Athletes Platform. All rights reserved. 
+                   <span class="kenya-flag"></span> Proudly Kenyan - Celebrating Excellence in Athletics</p>
+            </div>
+        </footer>
+
+    </main>
+
+     
+
+    <script>
+        // Animated counter for statistics
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            const speed = 200; // Lower is faster
+            
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+                const increment = target / speed;
+                
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(() => animateCounters(), 1);
+                } else {
+                    counter.innerText = target + '+';
+                }
+            });
+        }
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                    if (entry.target.classList.contains('stats-grid')) {
+                        animateCounters();
+                    }
+                }
+            });
+        }, { threshold: 0.1 });
+
+        // Observe elements for animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const elementsToAnimate = document.querySelectorAll('.section-title, .section-subtitle, .features-grid, .athletes-grid, .cta-content');
+            elementsToAnimate.forEach(el => observer.observe(el));
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+
+        // Header background on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'linear-gradient(135deg, rgba(0,0,0,0.95), rgba(26,42,108,0.95))';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, var(--kenya-black), var(--kenya-dark))';
+                header.style.backdropFilter = 'blur(10px)';
+            }
+        });
+    </script>
+</body>
+</html>

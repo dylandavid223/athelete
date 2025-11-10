@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Athlete Detail</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <%- include('../partials/header.ejs') %>
+    <div class="container">
+        <h1>Athlete Detail</h1>
+        <div class="athlete-info">
+            <h2><%= athlete.first_name %> <%= athlete.last_name %></h2>
+            <p><strong>Email:</strong> <%= athlete.email %></p>
+            <p><strong>Phone:</strong> <%= athlete.phone %></p>
+            <p><strong>Date of Birth:</strong> <%= athlete.date_of_birth %></p>
+            <p><strong>Gender:</strong> <%= athlete.gender %></p>
+            <p><strong>County Origin:</strong> <%= athlete.county_origin %></p>
+            <p><strong>Years Active:</strong> <%= athlete.years_active %></p>
+            <p><strong>Specialization:</strong> <%= athlete.specialization %></p>
+            <p><strong>Bio:</strong> <%= athlete.bio %></p>
+            <p><strong>Achievements:</strong> <%= JSON.stringify(athlete.achievements) %></p>
+            <p><strong>Personal Records:</strong> <%= JSON.stringify(athlete.personal_records) %></p>
+        </div>
+        <div class="athlete-achievements">
+            <h3>Achievements</h3>
+            <ul>
+                <% athlete.achievements.forEach(function(achievement) { %>
+                    <li><%= achievement.event_name %> - <%= achievement.year %> - <%= achievement.medal %> - <%= achievement.location %></li>
+                <% }); %>
+            </ul>
+        </div>
+        <div class="athlete-events">
+            <h3>Upcoming Events</h3>
+            <ul>
+                <% events.forEach(function(event) { %>
+                    <li><%= event.event_name %> on <%= event.event_date %> at <%= event.location %></li>
+                <% }); %>
+            </ul>
+        </div>
+    </div>
+    <%- include('../partials/footer.ejs') %>
+</body>
+</html>

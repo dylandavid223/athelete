@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sponsors & Partners - Kenyan Athletes Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0b6e4f;
+            --primary-light: #0d8a63;
+            --primary-dark: #084c37;
+            --secondary: #e67e22;
+            --accent: #e74c3c;
+            --light: #f8f9fa;
+            --dark: #2c3e50;
+            --gray: #6c757d;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+
+        nav a:hover, nav a.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #d35400;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(11, 110, 79, 0.8), rgba(8, 76, 55, 0.9)), url('https://images.unsplash.com/photo-1461896836934-ffe607ba8211?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 4rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Sponsorship Tiers */
+        .sponsorship-tiers {
+            background: white;
+        }
+
+        .tiers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .tier-card {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: var(--transition);
+            text-align: center;
+            position: relative;
+        }
+
+        .tier-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .tier-header {
+            padding: 2rem 1.5rem;
+            color: white;
+        }
+
+        .tier-bronze .tier-header {
+            background: linear-gradient(135deg, #cd7f32, #b56c28);
+        }
+
+        .tier-silver .tier-header {
+            background: linear-gradient(135deg, #c0c0c0, #a8a8a8);
+        }
+
+        .tier-gold .tier-header {
+            background: linear-gradient(135deg, #ffd700, #e6c200);
+        }
+
+        .tier-platinum .tier-header {
+            background: linear-gradient(135deg, #e5e4e2, #c9c0bb);
+        }
+
+        .tier-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .tier-price {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .tier-features {
+            padding: 1.5rem;
+        }
+
+        .tier-features ul {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+
+        .tier-features li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tier-features i {
+            color: var(--success);
+        }
+
+        /* Sponsors Grid */
+        .sponsors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .sponsor-card {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .sponsor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .sponsor-logo {
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .sponsor-logo img {
+            max-height: 100%;
+            max-width: 100%;
+        }
+
+        .sponsor-info {
+            padding: 1.5rem;
+        }
+
+        .sponsor-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .sponsor-type {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .sponsor-duration {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .sponsor-benefits {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        /* Partnership Benefits */
+        .benefits {
+            background: #f8f9fa;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .benefit-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .benefit-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 1rem;
+        }
+
+        .benefit-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .benefit-description {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Stats Section */
+        .stats {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .stat-item {
+            padding: 1.5rem;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background: white;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .testimonial-info h4 {
+            margin-bottom: 0.2rem;
+            color: var(--dark);
+        }
+
+        .testimonial-info p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, var(--secondary), #d35400);
+            color: white;
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .cta h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--secondary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .tiers-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-running"></i>
+                    Kenyan Athletes Hub
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="/views/index.html">Home</a></li>
+                        <li><a href="/views/athlete.html">Athletes</a></li>
+                        <li><a href="/views/events.html">Events</a></li>
+                        <li><a href="/views/achivements.html">Achievements</a></li>
+                        <li><a href="/views/advisors.html">Advisors</a></li>
+                        <li><a href="/views/merch.html">Merch</a></li>
+                        <li><a href="/views/ai.html" class="active">AI</a></li>
+                        
+                    </ul>
+                </nav>
+              
+ 
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Sponsors & Partners</h1>
+            <p>Join our network of organizations supporting the next generation of Kenyan athletic champions</p>
+            <a href="#partnership" class="btn btn-primary">Become a Sponsor</a>
+        </div>
+    </section>
+
+    <!-- Sponsorship Tiers -->
+    <section class="sponsorship-tiers">
+        <div class="container">
+            <div class="section-header">
+                <h2>Sponsorship Opportunities</h2>
+                <p>Choose the partnership level that aligns with your organization's goals</p>
+            </div>
+            
+            <div class="tiers-grid">
+                <!-- Bronze Tier -->
+                <div class="tier-card tier-bronze">
+                    <div class="tier-header">
+                        <h3 class="tier-name">Bronze</h3>
+                        <div class="tier-price">sh5,000/year</div>
+                        <p>Community Supporter</p>
+                    </div>
+                    <div class="tier-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Logo on website</li>
+                            <li><i class="fas fa-check"></i> Social media mentions</li>
+                            <li><i class="fas fa-check"></i> Event program recognition</li>
+                            <li><i class="fas fa-check"></i> Quarterly newsletter feature</li>
+                            <li><i class="fas fa-times"></i> Athlete endorsements</li>
+                            <li><i class="fas fa-times"></i> Exclusive event access</li>
+                        </ul>
+                        <a href="#contact" class="btn btn-primary">Get Started</a>
+                    </div>
+                </div>
+                
+                <!-- Silver Tier -->
+                <div class="tier-card tier-silver">
+                    <div class="tier-header">
+                        <h3 class="tier-name">Silver</h3>
+                        <div class="tier-price">sh15,000/year</div>
+                        <p>Development Partner</p>
+                    </div>
+                    <div class="tier-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> All Bronze benefits</li>
+                            <li><i class="fas fa-check"></i> Featured sponsor spot</li>
+                            <li><i class="fas fa-check"></i> Branded content creation</li>
+                            <li><i class="fas fa-check"></i> Athlete meet & greets</li>
+                            <li><i class="fas fa-check"></i> Training facility access</li>
+                            <li><i class="fas fa-times"></i> Premier event sponsorship</li>
+                        </ul>
+                        <a href="#contact" class="btn btn-primary">Get Started</a>
+                    </div>
+                </div>
+                
+                <!-- Gold Tier -->
+                <div class="tier-card tier-gold">
+                    <div class="tier-header">
+                        <h3 class="tier-name">Gold</h3>
+                        <div class="tier-price">sh50,000/year</div>
+                        <p>Elite Performance Partner</p>
+                    </div>
+                    <div class="tier-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> All Silver benefits</li>
+                            <li><i class="fas fa-check"></i> Premier logo placement</li>
+                            <li><i class="fas fa-check"></i> Exclusive athlete partnerships</li>
+                            <li><i class="fas fa-check"></i> VIP event access</li>
+                            <li><i class="fas fa-check"></i> Custom content campaigns</li>
+                            <li><i class="fas fa-check"></i> Media coverage opportunities</li>
+                        </ul>
+                        <a href="#contact" class="btn btn-primary">Get Started</a>
+                    </div>
+                </div>
+                
+                <!-- Platinum Tier -->
+                <div class="tier-card tier-platinum">
+                    <div class="tier-header">
+                        <h3 class="tier-name">Platinum</h3>
+                        <div class="tier-price">sh100,000+/year</div>
+                        <p>Strategic Alliance Partner</p>
+                    </div>
+                    <div class="tier-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> All Gold benefits</li>
+                            <li><i class="fas fa-check"></i> Naming rights opportunities</li>
+                            <li><i class="fas fa-check"></i> Exclusive category rights</li>
+                            <li><i class="fas fa-check"></i> Joint venture initiatives</li>
+                            <li><i class="fas fa-check"></i> Board advisory position</li>
+                            <li><i class="fas fa-check"></i> Custom partnership terms</li>
+                        </ul>
+                        <a href="#contact" class="btn btn-primary">Get Started</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Current Sponsors -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Valued Partners</h2>
+                <p>Meet the organizations currently supporting Kenyan athletes</p>
+            </div>
+            
+            <div class="sponsors-grid">
+                <!-- Nike -->
+                <div class="sponsor-card">
+                    <div class="sponsor-logo">
+                        <img src="https://logos-world.net/wp-content/uploads/2020/04/Nike-Logo.png" alt="Nike">
+                    </div>
+                    <div class="sponsor-info">
+                        <h3 class="sponsor-name">Nike</h3>
+                        <div class="sponsor-type">Platinum Partner</div>
+                        <div class="sponsor-duration">Partner since 2018</div>
+                        <p class="sponsor-benefits">Official apparel and footwear partner for elite Kenyan athletes</p>
+                        <a href="#" class="btn btn-outline" style="color: var(--primary); border-color: var(--primary);">View Partnership</a>
+                    </div>
+                </div>
+                
+                <!-- Safaricom -->
+                <div class="sponsor-card">
+                    <div class="sponsor-logo">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Safaricom_Logo.svg/2560px-Safaricom_Logo.svg.png" alt="Safaricom" style="filter: brightness(0);">
+                    </div>
+                    <div class="sponsor-info">
+                        <h3 class="sponsor-name">Safaricom</h3>
+                        <div class="sponsor-type">Gold Partner</div>
+                        <div class="sponsor-duration">Partner since 2015</div>
+                        <p class="sponsor-benefits">Digital innovation and connectivity solutions for athletes</p>
+                        <a href="#" class="btn btn-outline" style="color: var(--primary); border-color: var(--primary);">View Partnership</a>
+                    </div>
+                </div>
+                
+                <!-- Equity Bank -->
+                <div class="sponsor-card">
+                    <div class="sponsor-logo">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Equity_Bank_%28Kenya%29_logo.svg/2560px-Equity_Bank_%28Kenya%29_logo.svg.png" alt="Equity Bank">
+                    </div>
+                    <div class="sponsor-info">
+                        <h3 class="sponsor-name">Equity Bank</h3>
+                        <div class="sponsor-type">Gold Partner</div>
+                        <div class="sponsor-duration">Partner since 2019</div>
+                        <p class="sponsor-benefits">Financial literacy and banking services for athletes</p>
+                        <a href="#" class="btn btn-outline" style="color: var(--primary); border-color: var(--primary);">View Partnership</a>
+                    </div>
+                </div>
+                
+                <!-- Coca-Cola -->
+                <div class="sponsor-card">
+                    <div class="sponsor-logo">
+                        <img src="https://logos-world.net/wp-content/uploads/2020/04/Coca-Cola-Logo.png" alt="Coca-Cola">
+                    </div>
+                    <div class="sponsor-info">
+                        <h3 class="sponsor-name">Coca-Cola</h3>
+                        <div class="sponsor-type">Silver Partner</div>
+                        <div class="sponsor-duration">Partner since 2020</div>
+                        <p class="sponsor-benefits">Hydration and refreshment partner for major events</p>
+                        <a href="#" class="btn btn-outline" style="color: var(--primary); border-color: var(--primary);">View Partnership</a>
+                    </div>
+                </div>
+                
+                <!-- Kenya Airways -->
+                <div class="sponsor-card">
+                    <div class="sponsor-logo">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Kenya_Airways_Logo.svg/2560px-Kenya_Airways_Logo.svg.png" alt="Kenya Airways">
+                    </div>
+                    <div class="sponsor-info">
+                        <h3 class="sponsor-name">Kenya Airways</h3>
+                        <div class="sponsor-type">Silver Partner</div>
+                        <div class="sponsor-duration">Partner since 2017</div>
+                        <p class="sponsor-benefits">Official travel partner for international competitions</p>
+                        <a href="#" class="btn btn-outline" style="color: var(--primary); border-color: var(--primary);">View Partnership</a>
+                    </div>
+                </div>
+                
+                <!-- Betika -->
+                <div class="sponsor-card">
+                    <div class="sponsor-logo">
+                        <img src="https://betika.com/images/betika-logo.svg" alt="Betika">
+                    </div>
+                    <div class="sponsor-info">
+                        <h3 class="sponsor-name">Betika</h3>
+                        <div class="sponsor-type">Bronze Partner</div>
+                        <div class="sponsor-duration">Partner since 2021</div>
+                        <p class="sponsor-benefits">Sponsor of local athletics events and development programs</p>
+                        <a href="#" class="btn btn-outline" style="color: var(--primary); border-color: var(--primary);">View Partnership</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partnership Benefits -->
+    <section class="benefits">
+        <div class="container">
+            <div class="section-header">
+                <h2>Partnership Benefits</h2>
+                <p>Why organizations choose to partner with Kenyan Athletes Hub</p>
+            </div>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3 class="benefit-title">Brand Visibility</h3>
+                    <p class="benefit-description">Reach millions of sports enthusiasts across Kenya and globally through our platform and events</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="benefit-title">Talent Access</h3>
+                    <p class="benefit-description">Connect with elite athletes for endorsements, ambassadorships, and collaborative projects</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="benefit-title">CSR Impact</h3>
+                    <p class="benefit-description">Demonstrate corporate social responsibility by supporting athletic development in Kenya</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="benefit-title">Business Growth</h3>
+                    <p class="benefit-description">Leverage sports partnerships to drive customer engagement and business development</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <h3 class="benefit-title">Premium Association</h3>
+                    <p class="benefit-description">Align your brand with excellence, determination, and world-class athletic achievement</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3 class="benefit-title">Networking</h3>
+                    <p class="benefit-description">Access exclusive events and build relationships with key stakeholders in sports and business</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Corporate Partners</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">$5M+</div>
+                    <div class="stat-label">Annual Investment</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">200+</div>
+                    <div class="stat-label">Athletes Supported</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">15M+</div>
+                    <div class="stat-label">Annual Impressions</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>Partner Testimonials</h2>
+                <p>What our sponsors say about partnering with Kenyan athletes</p>
+            </div>
+            
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Partnering with Kenyan Athletes Hub has given Nike unprecedented access to emerging talent. Our collaboration has resulted in successful product launches and authentic brand stories."</p>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="John Smith" class="testimonial-avatar">
+                        <div class="testimonial-info">
+                            <h4>John Smith</h4>
+                            <p>Global Sports Marketing, Nike</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Our partnership has enabled us to develop meaningful CSR initiatives that genuinely impact communities. The platform's reach and credibility have amplified our social impact."</p>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Sarah Johnson" class="testimonial-avatar">
+                        <div class="testimonial-info">
+                            <h4>Sarah Johnson</h4>
+                            <p>CSR Director, Safaricom</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"The return on investment has exceeded our expectations. The athlete stories and content generated through this partnership have significantly boosted our brand engagement."</p>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Michael Chen" class="testimonial-avatar">
+                        <div class="testimonial-info">
+                            <h4>Michael Chen</h4>
+                            <p>Marketing Director, Coca-Cola East Africa</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta" id="partnership">
+        <div class="container">
+            <h2>Ready to Partner With Us?</h2>
+            <p>Join our network of forward-thinking organizations supporting Kenyan athletic excellence</p>
+            <a href="#contact" class="btn btn-outline" style="background: white; color: var(--secondary);">Become a Sponsor</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Kenyan Athletes Hub</h3>
+                    <p>Connecting athletes, sponsors, and fans to build the future of Kenyan athletics.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="athletes.html">Athletes</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="achievements.html">Achievements</a></li>
+                        <li><a href="marketplace.html">Marketplace</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Partnership Inquiries</h3>
+                    <p>Interested in sponsoring Kenyan athletes?</p>
+                    <a href="mailto:partnerships@kenyanathleteshub.com" class="btn btn-primary" style="margin-top: 1rem;">Contact Our Team</a>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Kenyan Athletes Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple animation for stats counter
+        document.addEventListener('DOMContentLoaded', function() {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            
+            statNumbers.forEach(stat => {
+                const target = parseInt(stat.textContent);
+                let current = 0;
+                const increment = target / 50;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    stat.textContent = Math.floor(current) + (stat.textContent.includes('M') ? '+' : '+');
+                }, 30);
+            });
+        });
+    </script>
+</body>
+</html>

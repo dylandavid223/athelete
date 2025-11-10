@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kenyan Athletics Events 2025-2026</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0b6e4f;
+            --primary-light: #0d8a63;
+            --primary-dark: #084c37;
+            --secondary: #e67e22;
+            --accent: #e74c3c;
+            --light: #f8f9fa;
+            --dark: #2c3e50;
+            --gray: #6c757d;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+
+        nav a:hover, nav a.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #d35400;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(11, 110, 79, 0.8), rgba(8, 76, 55, 0.9)), url('https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 4rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Card Styles */
+        .card {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            padding: 1.5rem;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        /* Grid Layouts */
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        .grid-4 {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        /* Event Cards */
+        .event-card .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .event-date {
+            background: white;
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .event-type {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: var(--light);
+            color: var(--dark);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .event-location {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            color: var(--gray);
+        }
+
+        .event-status {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        .status-upcoming {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-registration {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-ongoing {
+            background: #cce7ff;
+            color: #004085;
+        }
+
+        /* Calendar View */
+        .calendar-view {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .month-section {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .month-header {
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .month-events {
+            padding: 1.5rem;
+        }
+
+        .month-event {
+            padding: 1rem;
+            border-left: 4px solid var(--secondary);
+            margin-bottom: 1rem;
+            background: #f8f9fa;
+            border-radius: 0 var(--radius) var(--radius) 0;
+        }
+
+        .month-event:last-child {
+            margin-bottom: 0;
+        }
+
+        .event-date-small {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .event-title {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .event-location-small {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Filter Section */
+        .filters {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            background: var(--light);
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .filter-btn:hover:not(.active) {
+            background: #e9ecef;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--secondary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .filter-group {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-running"></i>
+                    Kenyan Athletes Hub
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="/views/index.html">Home</a></li>
+                        <li><a href="/views/athlete.html">Athletes</a></li>
+                        <li><a href="/views/events.html" class="active">Events</a></li>
+                        <li><a href="/views/achivements.html">Achievements</a></li>
+                        <li><a href="/views/merch.html">Merch</a></li>
+                        <li><a href="/views/sponsors.html">Sponsors</a></li>
+                        <li><a href="/views/ai.html">AI</a></li>
+                    </ul>
+                </nav>
+               
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Kenyan Athletics Events 2025-2026</h1>
+            <p>Discover upcoming races, championships, and competitions featuring Kenya's elite athletes</p>
+            <a href="/views/events.html" class="btn btn-primary">View All Events</a>
+        </div>
+    </section>
+
+    <!-- Featured Events -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2>Featured Events</h2>
+                <p>Highlighted competitions with elite athlete participation</p>
+            </div>
+            
+            <div class="grid grid-2">
+                <!-- Kenya Wildlife Marathon -->
+                <div class="card event-card">
+                    <div class="card-header">
+                        <h3>Kenya Wildlife Marathon & Half-Marathon</h3>
+                        <div class="event-date">May 24, 2026</div>
+                    </div>
+                    <div class="card-body">
+                        <span class="event-type">Marathon / Half-Marathon</span>
+                        <div class="event-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Machakos, Kenya
+                        </div>
+                        <p>Experience the beauty of Kenyan wildlife while competing in this scenic marathon through conservation areas. The course offers stunning views and a chance to run alongside some of Kenya's most beautiful landscapes.</p>
+                        <div class="event-status status-upcoming">Registration Open</div>
+                        <a href="event-details.html" class="btn btn-primary" style="margin-top: 1rem;">Register Now</a>
+                    </div>
+                </div>
+                
+                <!-- Mumias Open Meet -->
+                <div class="card event-card">
+                    <div class="card-header">
+                        <h3>Mumias Open Meet</h3>
+                        <div class="event-date">Nov 7-8, 2025</div>
+                    </div>
+                    <div class="card-body">
+                        <span class="event-type">Track & Field</span>
+                        <div class="event-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Mumias, Kenya
+                        </div>
+                        <p>Athletics Kenya opens the 2026 season with this competitive meet featuring sprints, middle-distance, and field events. This event serves as an important qualifier for national team selection.</p>
+                        <div class="event-status status-upcoming">Registration Opening Soon</div>
+                        <a href="event-details.html" class="btn btn-primary" >  ></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Calendar -->
+    <section id="events" style="background: #f8f9fa;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Events Calendar</h2>
+                <p>Complete schedule of athletics events in Kenya and abroad</p>
+            </div>
+            
+            <!-- Filters -->
+            <div class="filters">
+                <h3 style="margin-bottom: 1rem;">Filter by Event Type</h3>
+                <div class="filter-group">
+                    <button class="filter-btn active">All Events</button>
+                    <button class="filter-btn">Marathon</button>
+                    <button class="filter-btn">Track & Field</button>
+                    <button class="filter-btn">Cross Country</button>
+                    <button class="filter-btn">Road Race</button>
+                </div>
+            </div>
+            
+            <!-- Calendar View -->
+            <div class="calendar-view">
+                <!-- November 2025 -->
+                <div class="month-section">
+                    <div class="month-header">November 2025</div>
+                    <div class="month-events">
+                        <div class="month-event">
+                            <div class="event-date-small">November 7-8, 2025</div>
+                            <div class="event-title">Mumias Open Meet</div>
+                            <div class="event-location-small">Mumias, Kenya</div>
+                            <div class="event-type">Track & Field</div>
+                        </div>
+                        
+                        <div class="month-event">
+                            <div class="event-date-small">November 22, 2025</div>
+                            <div class="event-title">4th Betika Bingwafest</div>
+                            <div class="event-location-small">Ulinzi Complex, Nairobi</div>
+                            <div class="event-type">Track & Field</div>
+                        </div>
+                        
+                        <div class="month-event">
+                            <div class="event-date-small">November 23, 2025</div>
+                            <div class="event-title">Philadelphia Marathon</div>
+                            <div class="event-location-small">Philadelphia, USA</div>
+                            <div class="event-type">Marathon</div>
+                        </div>
+                        
+                        <div class="month-event">
+                            <div class="event-date-small">November 30, 2025</div>
+                            <div class="event-title">Tech Run 10K</div>
+                            <div class="event-location-small">Eldoret, Kenya</div>
+                            <div class="event-type">Road Race</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- December 2025 -->
+                <div class="month-section">
+                    <div class="month-header">December 2025</div>
+                    <div class="month-events">
+                        <div class="month-event">
+                            <div class="event-date-small">December 6, 2025</div>
+                            <div class="event-title">Chepsaita Cross Country</div>
+                            <div class="event-location-small">Uasin Gishu, Kenya</div>
+                            <div class="event-type">Cross Country</div>
+                        </div>
+                        
+                        <div class="month-event">
+                            <div class="event-date-small">December 12, 2025</div>
+                            <div class="event-title">Ngelel Tarit Kids Race</div>
+                            <div class="event-location-small">Eldoret, Kenya</div>
+                            <div class="event-type">Youth Race</div>
+                        </div>
+                        
+                        <div class="month-event">
+                            <div class="event-date-small">December 13, 2025</div>
+                            <div class="event-title">Otso Moiben Half Marathon</div>
+                            <div class="event-location-small">Uasin Gishu, Kenya</div>
+                            <div class="event-type">Half Marathon</div>
+                        </div>
+                        
+                        <div class="month-event">
+                            <div class="event-date-small">December 20, 2025</div>
+                            <div class="event-title">5th Betika Bingwafest</div>
+                            <div class="event-location-small">Kinoru, Meru</div>
+                            <div class="event-type">Track & Field</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- May 2026 -->
+                <div class="month-section">
+                    <div class="month-header">May 2026</div>
+                    <div class="month-events">
+                        <div class="month-event">
+                            <div class="event-date-small">May 24, 2026</div>
+                            <div class="event-title">Kenya Wildlife Marathon & Half-Marathon</div>
+                            <div class="event-location-small">Machakos, Kenya</div>
+                            <div class="event-type">Marathon / Half-Marathon</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Event Types Section -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2>Event Categories</h2>
+                <p>Different types of athletic competitions in Kenya</p>
+            </div>
+            
+            <div class="grid grid-4">
+                <div class="card" style="text-align: center; padding: 1.5rem;">
+                    <i class="fas fa-road" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                    <h3>Marathons</h3>
+                    <p>Long-distance road races including full and half marathons</p>
+                </div>
+                
+                <div class="card" style="text-align: center; padding: 1.5rem;">
+                    <i class="fas fa-running" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                    <h3>Track & Field</h3>
+                    <p>Sprints, middle-distance, and field events at stadium venues</p>
+                </div>
+                
+                <div class="card" style="text-align: center; padding: 1.5rem;">
+                    <i class="fas fa-tree" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                    <h3>Cross Country</h3>
+                    <p>Races over natural terrain including grass, mud, and hills</p>
+                </div>
+                
+                <div class="card" style="text-align: center; padding: 1.5rem;">
+                    <i class="fas fa-child" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                    <h3>Youth Events</h3>
+                    <p>Competitions specifically for junior and youth athletes</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Kenyan Athletes Hub</h3>
+                    <p>Celebrating and tracking the achievements of Kenya's world-class athletes.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="athletes.html">Athletes</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="achievements.html">Achievements</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Event Updates</h3>
+                    <p>Subscribe to get notifications about upcoming events and registration deadlines.</p>
+                    <form>
+                        <div class="form-group">
+                            <input type="email" placeholder="Your email address" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Kenyan Athletes Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple filter functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // In a real implementation, this would filter the events
+                    // For this demo, we'll just show an alert
+                    if(this.textContent !== 'All Events') {
+                        alert(`Filtering by: ${this.textContent}`);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

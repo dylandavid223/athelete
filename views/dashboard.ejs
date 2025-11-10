@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dashboard • KenyanAthletes</title>
+  <style>
+    :root{
+      --bg:#f5f5dc; /* Light grey-brown background */
+      --card:#ffffff;
+      --accent:#8b0000; /* Dark red accent */
+      --muted:#696969; /* Grey-brown muted text */
+      --glass: rgba(139,0,0,0.06); /* Dark red glass effect */
+      --radius:14px;
+      --shadow: 0 10px 30px rgba(139,0,0,0.06); /* Dark red shadow */
+      --secondary:#a0522d; /* Sienna for secondary elements */
+      --highlight:#daa520; /* Goldenrod for highlights */
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(180deg,#f8fbfb 0%,var(--bg) 60%);
+      color:#0b2b23;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:2rem;
+    }
+
+    .container{max-width:1200px;margin:0 auto}
+    .welcome-header{
+      background: linear-gradient(135deg,var(--accent),var(--secondary));
+      color:white;
+      padding:2rem;
+      border-radius:var(--radius);
+      margin-bottom:2rem;
+      box-shadow:var(--shadow);
+    }
+    .welcome-header h1{margin:0;font-size:2rem}
+    .welcome-header p{margin:0.5rem 0 0;font-size:1.1rem;opacity:0.9}
+
+    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;margin-bottom:2rem}
+    .stat-card{background:var(--card);padding:1.5rem;border-radius:var(--radius);box-shadow:var(--shadow);text-align:center;border:1px solid rgba(0,0,0,0.04)}
+    .stat-card .number{font-size:3rem;font-weight:800;color:var(--accent);display:block;margin-bottom:0.5rem}
+    .stat-card .label{font-size:1.1rem;color:var(--muted);font-weight:600}
+
+    .dashboard-grid{display:grid;grid-template-columns:2fr 1fr;gap:2rem}
+    .main-content{display:flex;flex-direction:column;gap:2rem}
+    .sidebar{display:flex;flex-direction:column;gap:1.5rem}
+
+    .section{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;border:1px solid rgba(0,0,0,0.04)}
+    .section-header{background:linear-gradient(90deg,rgba(11,110,79,0.03),transparent);padding:1.25rem;border-bottom:1px solid rgba(0,0,0,0.04)}
+    .section-header h2{margin:0;font-size:1.4rem;color:#042a23}
+    .section-content{padding:1.25rem}
+
+    .athlete-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
+    .athlete-card{background:linear-gradient(180deg,#fff,#fcfffb);padding:1rem;border-radius:10px;border:1px solid #eef6f1;text-align:center}
+    .athlete-card .avatar{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:1.5rem;margin:0 auto 0.5rem}
+    .athlete-card .name{font-weight:700;color:#042a23;margin-bottom:0.25rem}
+    .athlete-card .specialty{font-size:0.9rem;color:var(--muted)}
+
+    .event-list{display:flex;flex-direction:column;gap:0.75rem}
+    .event-item{background:linear-gradient(180deg,#fff,#fcfffb);padding:1rem;border-radius:10px;border:1px solid #eef6f1}
+    .event-item .title{font-weight:700;color:#042a23;margin-bottom:0.25rem}
+    .event-item .date{color:var(--accent);font-size:0.9rem}
+
+    .achievement-list{display:flex;flex-direction:column;gap:0.75rem}
+    .achievement-item{background:linear-gradient(180deg,#fff,#fbfffb);padding:1rem;border-radius:10px;border-left:4px solid #ffd54b}
+    .achievement-item .athlete{font-weight:700;color:#042a23;margin-bottom:0.25rem}
+    .achievement-item .medal{color:#ffd54b;font-size:0.9rem}
+
+    .user-profile{background:linear-gradient(180deg,#fff,#fcfffb);padding:1.25rem;border-radius:12px;border:1px solid #eef6f1}
+    .user-profile .avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:2rem;margin:0 auto 1rem}
+    .user-profile .name{font-weight:700;color:#042a23;text-align:center;margin-bottom:0.5rem}
+    .user-profile .role{color:var(--accent);text-align:center;font-size:0.9rem;margin-bottom:1rem}
+    .user-profile .actions{display:flex;flex-direction:column;gap:0.5rem}
+    .user-profile .actions a{text-decoration:none;color:var(--accent);font-weight:600;padding:0.5rem;border-radius:6px;border:1px solid rgba(11,110,79,0.12);text-align:center;transition:all 0.2s}
+    .user-profile .actions a:hover{background:var(--accent);color:white}
+
+    .quick-links{background:linear-gradient(180deg,#fff,#fcfffb);padding:1.25rem;border-radius:12px;border:1px solid #eef6f1}
+    .quick-links h3{margin:0 0 1rem;font-size:1.1rem;color:#042a23}
+    .quick-links a{display:block;color:var(--accent);text-decoration:none;font-weight:600;margin-bottom:0.75rem;padding:0.5rem;border-radius:6px;border:1px solid rgba(11,110,79,0.12);text-align:center;transition:all 0.2s}
+    .quick-links a:hover{background:var(--accent);color:white}
+
+    @media (max-width:768px){
+      .dashboard-grid{grid-template-columns:1fr}
+      .stats-grid{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+      body{padding:1rem}
+      .welcome-header{padding:1.5rem}
+      .welcome-header h1{font-size:1.5rem}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Welcome Header -->
+    <div class="welcome-header">
+      <h1>Welcome back, <%= user ? user.firstName : 'User' %>! 👋</h1>
+      <p>Here's what's happening in the Kenyan Athletics community today.</p>
+    </div>
+
+    <!-- Platform Statistics -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="number"><%= dashboardData && dashboardData.stats ? dashboardData.stats.totalAthletes : 0 %></span>
+        <span class="label">Total Athletes</span>
+      </div>
+      <div class="stat-card">
+        <span class="number"><%= dashboardData && dashboardData.stats ? dashboardData.stats.goldMedals : 0 %></span>
+        <span class="label">Gold Medals</span>
+      </div>
+      <div class="stat-card">
+        <span class="number"><%= dashboardData && dashboardData.stats ? dashboardData.stats.upcomingEvents : 0 %></span>
+        <span class="label">Upcoming Events</span>
+      </div>
+      <div class="stat-card">
+        <span class="number"><%= dashboardData && dashboardData.stats ? dashboardData.stats.legendsCount : 0 %></span>
+        <span class="label">Athletics Legends</span>
+      </div>
+    </div>
+
+    <!-- Main Dashboard Content -->
+    <div class="dashboard-grid">
+      <div class="main-content">
+        <!-- Recent Athletes -->
+        <div class="section">
+          <div class="section-header">
+            <h2>🏃 Recent Athletes</h2>
+          </div>
+          <div class="section-content">
+            <div class="athlete-grid">
+              <% if (dashboardData && dashboardData.allAthletes && dashboardData.allAthletes.length > 0) { %>
+                <% dashboardData.allAthletes.slice(0, 6).forEach(athlete => { %>
+                  <div class="athlete-card">
+                    <div class="avatar"><%= athlete.first_name ? athlete.first_name.charAt(0).toUpperCase() : 'A' %><%= athlete.last_name ? athlete.last_name.charAt(0).toUpperCase() : '' %></div>
+                    <div class="name"><%= athlete.first_name %> <%= athlete.last_name %></div>
+                    <div class="specialty"><%= athlete.specialization || 'Athlete' %></div>
+                  </div>
+                <% }) %>
+              <% } else { %>
+                <p style="grid-column:1/-1;text-align:center;color:var(--muted)">No athletes found.</p>
+              <% } %>
+            </div>
+            <div style="text-align:center;margin-top:1rem">
+              <a href="/views/athlete.html" style="color:var(--accent);text-decoration:none;font-weight:600">View All Athletes →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Upcoming Events -->
+        <div class="section">
+          <div class="section-header">
+            <h2>📅 Upcoming Events</h2>
+          </div>
+          <div class="section-content">
+            <div class="event-list">
+              <% if (dashboardData && dashboardData.allAthletes && dashboardData.allAthletes.length > 0) { %>
+                <!-- Placeholder events - in real app, fetch from events table -->
+                <div class="event-item">
+                  <div class="title">Kenya National Championships</div>
+                  <div class="date">March 15, 2024</div>
+                </div>
+                <div class="event-item">
+                  <div class="title">East African Cross Country</div>
+                  <div class="date">April 2, 2024</div>
+                </div>
+                <div class="event-item">
+                  <div class="title">World Athletics Indoor Tour</div>
+                  <div class="date">April 20, 2024</div>
+                </div>
+              <% } else { %>
+                <p style="text-align:center;color:var(--muted)">No upcoming events.</p>
+              <% } %>
+            </div>
+            <div style="text-align:center;margin-top:1rem">
+              <a href="/views/events.html" style="color:var(--accent);text-decoration:none;font-weight:600">View All Events →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Achievements -->
+        <div class="section">
+          <div class="section-header">
+            <h2>🏆 Recent Achievements</h2>
+          </div>
+          <div class="section-content">
+            <div class="achievement-list">
+              <% if (dashboardData && dashboardData.allAchievements && dashboardData.allAchievements.length > 0) { %>
+                <% dashboardData.allAchievements.slice(0, 5).forEach(achievement => { %>
+                  <div class="achievement-item">
+                    <div class="athlete"><%= achievement.first_name %> <%= achievement.last_name %></div>
+                    <div class="medal"><%= achievement.medal %> - <%= achievement.event || 'Competition' %> (<%= achievement.year %>)</div>
+                  </div>
+                <% }) %>
+              <% } else { %>
+                <p style="text-align:center;color:var(--muted)">No recent achievements.</p>
+              <% } %>
+            </div>
+            <div style="text-align:center;margin-top:1rem">
+              <a href="/views/achivements.html" style="color:var(--accent);text-decoration:none;font-weight:600">View All Achievements →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <!-- User Profile -->
+        <div class="user-profile">
+          <div class="avatar">
+            <% if (user && user.profile_image) { %>
+              <img src="/public/img/Muhammad Ali was not the Greatest.jpg" alt="avatar" style="width:100%;height:100%;border-radius:50%;object-fit:cover">
+            <% } else { %>
+              👤
+            <% } %>
+          </div>
+          <div class="name"><%= user ? user.firstName + ' ' + user.lastName : 'User' %></div>
+          <div class="role"><%= user ? user.role : 'User' %></div>
+          <div class="actions">
+            <a href="/profile">View Profile</a>
+            <a href="/logout">Logout</a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="quick-links">
+          <h3>Quick Links</h3>
+          <a href="/views/athlete.html">Browse Athletes</a>
+          <a href="/views/events.html">Events</a>
+          <a href="/views/achivements.html">Achievements</a>
+          <a href="/views/ai.html">AI</a>
+          <% if (user && user.role === 'athlete') { %>
+            <a href="/views/index.html">Home</a>
+          <% } %>
+        </div>
+
+        <!-- Athlete Profile Section (if user is athlete) -->
+        <% if (user && user.role === 'athlete' && dashboardData && dashboardData.athleteProfile) { %>
+          <div class="user-profile">
+            <h3 style="margin:0 0 1rem;color:#042a23">My Athlete Profile</h3>
+            <div style="font-size:0.9rem;color:var(--muted);margin-bottom:1rem">
+              <strong>Specialization:</strong> <%= dashboardData.athleteProfile.specialization || 'Not set' %><br>
+              <strong>Status:</strong> <%= dashboardData.athleteProfile.is_legend ? 'Legend' : 'Active' %>
+            </div>
+            <div class="actions">
+              <a href="/athlete/<%= dashboardData.athleteProfile.id %>">View Public Profile</a>
+              
+            </div>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</body>

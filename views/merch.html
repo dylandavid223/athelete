@@ -1,0 +1,1721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kenyan Athletes Hub - Sports Marketplace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0b6e4f;
+            --primary-light: #0d8a63;
+            --primary-dark: #084c37;
+            --secondary: #e67e22;
+            --accent: #e74c3c;
+            --light: #f8f9fa;
+            --dark: #2c3e50;
+            --gray: #6c757d;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+
+        nav a:hover, nav a.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .cart-icon {
+            position: relative;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #d35400;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(11, 110, 79, 0.8), rgba(8, 76, 55, 0.9)), url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Categories Section */
+        .categories {
+            padding: 3rem 0;
+            background: white;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: var(--transition);
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .category-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 1.5rem auto 1rem;
+        }
+
+        .category-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .category-description {
+            color: var(--gray);
+            padding: 0 1rem 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Products Section */
+        .products {
+            padding: 4rem 0;
+            background: #f8f9fa;
+        }
+
+        .filter-bar {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            background: var(--light);
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .filter-btn:hover:not(.active) {
+            background: #e9ecef;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .search-box input {
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: var(--radius);
+            width: 250px;
+        }
+
+        .search-box button {
+            padding: 0.5rem 1rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--accent);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-category {
+            color: var(--primary);
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .product-description {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .current-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .original-price {
+            font-size: 1rem;
+            color: var(--gray);
+            text-decoration: line-through;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .rating-star {
+            color: var(--warning);
+            font-size: 0.9rem;
+        }
+
+        .rating-count {
+            color: var(--gray);
+            font-size: 0.8rem;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .add-to-cart {
+            flex: 1;
+            padding: 0.7rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .add-to-cart:hover {
+            background: var(--primary-dark);
+        }
+
+        .wishlist {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #ddd;
+            border-radius: var(--radius);
+            background: white;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wishlist:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Cart Sidebar */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 380px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-sidebar.active {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-header h3 {
+            color: var(--dark);
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .cart-items {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius);
+            background-size: cover;
+            background-position: center;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .cart-item-price {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .cart-item-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quantity-btn {
+            width: 25px;
+            height: 25px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .quantity-input {
+            width: 40px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: var(--radius);
+            padding: 0.2rem;
+        }
+
+        .remove-item {
+            color: var(--danger);
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-left: auto;
+        }
+
+        .cart-footer {
+            padding: 1.5rem;
+            border-top: 1px solid #eee;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .checkout-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .checkout-btn:disabled {
+            background: var(--gray);
+            cursor: not-allowed;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* M-Pesa Payment Modal */
+        .mpesa-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .mpesa-modal.active {
+            display: flex;
+        }
+
+        .mpesa-content {
+            background: white;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .mpesa-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .mpesa-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #00a650, #007e3a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .mpesa-title {
+            font-size: 1.5rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .mpesa-subtitle {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .mpesa-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            padding: 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .amount-display {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            text-align: center;
+            border: 2px dashed #dee2e6;
+        }
+
+        .amount-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .amount-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .mpesa-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .btn-cancel {
+            flex: 1;
+            padding: 1rem;
+            background: #6c757d;
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-cancel:hover {
+            background: #5a6268;
+        }
+
+        .btn-pay {
+            flex: 2;
+            padding: 1rem;
+            background: linear-gradient(135deg, #00a650, #007e3a);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-pay:hover {
+            background: linear-gradient(135deg, #007e3a, #00632e);
+            transform: translateY(-2px);
+        }
+
+        .btn-pay:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .payment-status {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .status-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .status-success {
+            color: var(--success);
+        }
+
+        .status-error {
+            color: var(--danger);
+        }
+
+        .status-loading {
+            color: var(--primary);
+            animation: spin 1s linear infinite;
+        }
+
+        .status-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .status-message {
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--gray);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            color: var(--dark);
+        }
+
+        /* Security Badge */
+        .security-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding: 0.5rem;
+            background: #f8f9fa;
+            border-radius: var(--radius);
+            font-size: 0.8rem;
+            color: var(--success);
+        }
+
+        /* Phone Input Styling */
+        .phone-input-container {
+            position: relative;
+        }
+
+        .phone-prefix {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+            font-weight: 600;
+        }
+
+        .phone-input {
+            padding-left: 3rem !important;
+        }
+
+        /* Terms Checkbox */
+        .terms-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .terms-checkbox input {
+            margin-top: 0.2rem;
+        }
+
+        .terms-checkbox label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            line-height: 1.4;
+        }
+
+        .terms-checkbox a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .terms-checkbox a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .filter-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box input {
+                width: 100%;
+            }
+
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: var(--success);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            z-index: 3000;
+            animation: slideIn 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">
+                    <i class="fas fa-running"></i>
+                    Kenyan Athletes Hub
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="/views/index.html" class="active">Home</a></li>
+                        <li><a href="/views/athlete.html">Athletes</a></li>
+                        <li><a href="/views/events.html">Events</a></li>
+                        <li><a href="/views/achivements.html">Achievements</a></li>
+                        <li><a href="/views/advisors.html">Advisors</a></li>
+                        
+                        
+                        <li><a href="/views/sponsors.html">Sponsors</a></li>
+                        <li><a href="/views/ai.html">AI</a></li>
+
+                    </ul>
+                </nav>
+                <div class="header-actions">
+                    <div class="cart-icon" id="cartIcon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                  
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Sports Equipment & Fashion</h1>
+            <p>Discover premium athletic gear, running shoes, and performance apparel designed for Kenyan athletes</p>
+            <a href="#products" class="btn btn-primary">Shop Now</a>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories">
+        <div class="container">
+            <div class="section-header">
+                <h2>Shop By Category</h2>
+                <p>Find the perfect gear for your sport and style</p>
+            </div>
+            
+            <div class="category-grid">
+                <div class="category-card" onclick="filterProducts('running')">
+                    <div class="category-icon">
+                        <i class="fas fa-running"></i>
+                    </div>
+                    <h3 class="category-title">Running Gear</h3>
+                    <p class="category-description">Shoes, apparel, and accessories for track and road running</p>
+                </div>
+                
+                <div class="category-card" onclick="filterProducts('training')">
+                    <div class="category-icon">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <h3 class="category-title">Training Equipment</h3>
+                    <p class="category-description">Weights, resistance bands, and fitness accessories</p>
+                </div>
+                
+                <div class="category-card" onclick="filterProducts('apparel')">
+                    <div class="category-icon">
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                    <h3 class="category-title">Athletic Apparel</h3>
+                    <p class="category-description">Performance wear for training and competition</p>
+                </div>
+                
+                <div class="category-card" onclick="filterProducts('accessories')">
+                    <div class="category-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="category-title">Sports Accessories</h3>
+                    <p class="category-description">Watches, bags, hydration packs, and more</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="products">
+        <div class="container">
+            <div class="section-header">
+                <h2>Featured Products</h2>
+                <p>Premium sports equipment and fashion for elite performance</p>
+            </div>
+            
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <button class="filter-btn active" onclick="filterProducts('all')">All Products</button>
+                    <button class="filter-btn" onclick="filterProducts('running')">Running</button>
+                    <button class="filter-btn" onclick="filterProducts('training')">Training</button>
+                    <button class="filter-btn" onclick="filterProducts('apparel')">Apparel</button>
+                    <button class="filter-btn" onclick="filterProducts('accessories')">Accessories</button>
+                </div>
+                <div class="search-box">
+                    <input type="text" placeholder="Search products..." id="searchInput">
+                    <button onclick="searchProducts()"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+            
+            <div class="product-grid" id="productGrid">
+                <!-- Product 1 -->
+                <div class="product-card" data-category="running">
+                    <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80')">
+                        <span class="product-badge">Best Seller</span>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Running Shoes</div>
+                        <h3 class="product-title">Nike ZoomX Vaporfly</h3>
+                        <p class="product-description">Elite racing shoes with carbon fiber plate for maximum energy return</p>
+                        <div class="product-price">
+                            <span class="current-price">KSh 12,500</span>
+                            <span class="original-price">KSh 15,000</span>
+                        </div>
+                        <div class="product-rating">
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star-half-alt rating-star"></i>
+                            <span class="rating-count">(128 reviews)</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart" onclick="addToCart(1)">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="wishlist">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product-card" data-category="apparel">
+                    <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80')">
+                        <span class="product-badge">New</span>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Running Apparel</div>
+                        <h3 class="product-title">Kenyan Flag Running Kit</h3>
+                        <p class="product-description">Performance top and shorts with moisture-wicking technology</p>
+                        <div class="product-price">
+                            <span class="current-price">KSh 3,200</span>
+                        </div>
+                        <div class="product-rating">
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <span class="rating-count">(64 reviews)</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart" onclick="addToCart(2)">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="wishlist">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card" data-category="training">
+                    <div class="product-image" image style="background-image: url('https://images.unsplash.com/photo-1598970434795-0c54fe7c0642?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80')">
+                        <span class="product-badge">Sale</span>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Training Equipment</div>
+                        <h3 class="product-title">Adjustable Dumbbell Set</h3>
+                        <p class="product-description">5-25kg adjustable dumbbells for home and gym strength training</p>
+                        <div class="product-price">
+                            <span class="current-price">KSh 8,900</span>
+                            <span class="original-price">KSh 10,500</span>
+                        </div>
+                        <div class="product-rating">
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="far fa-star rating-star"></i>
+                            <span class="rating-count">(42 reviews)</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart" onclick="addToCart(3)">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="wishlist">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="product-card" data-category="accessories">
+                    <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1523170335258-f5ed11844a49?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80')">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Sports Watch</div>
+                        <h3 class="product-title">Garmin Forerunner 55</h3>
+                        <p class="product-description">GPS running watch with heart rate monitoring and training metrics</p>
+                        <div class="product-price">
+                            <span class="current-price">KSh 25,000</span>
+                        </div>
+                        <div class="product-rating">
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star-half-alt rating-star"></i>
+                            <span class="rating-count">(89 reviews)</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart" onclick="addToCart(4)">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="wishlist">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 5 -->
+                <div class="product-card" data-category="running">
+                    <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80')">
+                        <span class="product-badge">Sale</span>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Running Shoes</div>
+                        <h3 class="product-title">Adidas Adizero Adios</h3>
+                        <p class="product-description">Lightweight racing flats for speed and efficiency</p>
+                        <div class="product-price">
+                            <span class="current-price">KSh 9,800</span>
+                            <span class="original-price">KSh 12,000</span>
+                        </div>
+                        <div class="product-rating">
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <span class="rating-count">(156 reviews)</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart" onclick="addToCart(5)">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="wishlist">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 6 -->
+                <div class="product-card" data-category="apparel">
+                    <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1556821840-3a63f95609a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80')">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Compression Wear</div>
+                        <h3 class="product-title">2XU Compression Tights</h3>
+                        <p class="product-description">Graduated compression for improved circulation and recovery</p>
+                        <div class="product-price">
+                            <span class="current-price">KSh 6,500</span>
+                        </div>
+                        <div class="product-rating">
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="fas fa-star rating-star"></i>
+                            <i class="far fa-star rating-star"></i>
+                            <span class="rating-count">(73 reviews)</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart" onclick="addToCart(6)">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="wishlist">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Sidebar -->
+    <div class="overlay" id="overlay"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Your Cart (<span id="cartCount"></span>)</h3>
+            <button class="close-cart" id="closeCart">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be populated dynamically -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">KSh 0</span>
+            </div>
+            <button class="checkout-btn" id="checkoutBtn" disabled>Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- M-Pesa Payment Modal -->
+    <div class="mpesa-modal" id="mpesaModal">
+        <div class="mpesa-content">
+            <button class="close-modal" id="closeMpesaModal">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="mpesa-header">
+                <div class="mpesa-logo">M</div>
+                <h2 class="mpesa-title">M-Pesa Payment</h2>
+                <p class="mpesa-subtitle">Complete your purchase securely with M-Pesa</p>
+            </div>
+
+            <div id="paymentForm">
+                <div class="amount-display">
+                    <div class="amount-label">Total Amount to Pay</div>
+                    <div class="amount-value" id="paymentAmount">KSh 0</div>
+                </div>
+
+                <form class="mpesa-form" id="mpesaPaymentForm">
+                    <div class="form-group">
+                        <label for="phoneNumber">M-Pesa Phone Number</label>
+                        <div class="phone-input-container">
+                            <span class="phone-prefix"></span>
+                            <input type="tel" id="phoneNumber" class="phone-input" placeholder="7XX XXX XXX" maxlength="11" required>
+                        </div>
+                    </div>
+
+                    <div class="terms-checkbox">
+                        <input type="checkbox" id="termsAgreement" required>
+                        <label for="termsAgreement">
+                            I agree to the <a href="#">Terms of Service</a> and authorize Kenyan Athletes Hub to process this payment via M-Pesa
+                        </label>
+                    </div>
+
+                    <div class="mpesa-actions">
+                        <button type="button" class="btn-cancel" id="cancelPayment">Cancel</button>
+                        <button type="submit" class="btn-pay" id="payNowBtn">
+                            <i class="fas fa-lock"></i> Pay with M-Pesa
+                        </button>
+                    </div>
+                </form>
+
+                <div class="security-badge">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Secure Payment • Encrypted Connection</span>
+                </div>
+            </div>
+
+            <div id="paymentStatus" style="display: none;">
+                <!-- Payment status will be shown here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced Cart Management
+        class CartManager {
+            constructor() {
+                this.items = [];
+                this.loadCart();
+            }
+
+            loadCart() {
+                const savedCart = localStorage.getItem('kenyanAthletesCart');
+                if (savedCart) {
+                    this.items = JSON.parse(savedCart);
+                }
+                this.updateCartDisplay();
+            }
+
+            saveCart() {
+                localStorage.setItem('kenyanAthletesCart', JSON.stringify(this.items));
+                this.updateCartDisplay();
+            }
+
+            addItem(product) {
+                const existingItem = this.items.find(item => item.id === product.id);
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    this.items.push({
+                        ...product,
+                        quantity: 1
+                    });
+                }
+                this.saveCart();
+                this.showNotification(`${product.name} added to cart!`);
+            }
+
+            removeItem(productId) {
+                const item = this.items.find(item => item.id === productId);
+                if (item) {
+                    this.items = this.items.filter(item => item.id !== productId);
+                    this.saveCart();
+                    this.showNotification(`${item.name} removed from cart!`);
+                }
+            }
+
+            updateQuantity(productId, quantity) {
+                const item = this.items.find(item => item.id === productId);
+                if (item) {
+                    if (quantity <= 0) {
+                        this.removeItem(productId);
+                    } else {
+                        item.quantity = quantity;
+                        this.saveCart();
+                    }
+                }
+            }
+
+            getTotal() {
+                return this.items.reduce((total, item) => total + (item.price * item.quantity), 0);
+            }
+
+            getItemCount() {
+                return this.items.reduce((count, item) => count + item.quantity, 0);
+            }
+
+            clearCart() {
+                this.items = [];
+                this.saveCart();
+            }
+
+            updateCartDisplay() {
+                const cartCount = document.getElementById('cartCount');
+                const cartTotal = document.getElementById('cartTotal');
+                const cartItems = document.getElementById('cartItems');
+                const paymentAmount = document.getElementById('paymentAmount');
+                const checkoutBtn = document.getElementById('checkoutBtn');
+
+                // Update counts and totals
+                cartCount.textContent = this.getItemCount();
+                cartTotal.textContent = `KSh ${this.getTotal().toLocaleString()}`;
+                paymentAmount.textContent = `KSh ${this.getTotal().toLocaleString()}`;
+
+                // Update cart items
+                cartItems.innerHTML = '';
+                if (this.items.length === 0) {
+                    cartItems.innerHTML = '<p style="text-align: center; color: var(--gray); padding: 2rem;">Your cart is empty</p>';
+                } else {
+                    this.items.forEach(item => {
+                        const cartItem = document.createElement('div');
+                        cartItem.className = 'cart-item';
+                        cartItem.innerHTML = `
+                            <div class="cart-item-image" style="background-image: url('${item.image}')"></div>
+                            <div class="cart-item-details">
+                                <div class="cart-item-title">${item.name}</div>
+                                <div class="cart-item-price">KSh ${item.price.toLocaleString()}</div>
+                                <div class="cart-item-actions">
+                                    <button class="quantity-btn" onclick="cartManager.updateQuantity(${item.id}, ${item.quantity - 1})">-</button>
+                                    <input type="text" class="quantity-input" value="${item.quantity}" onchange="cartManager.updateQuantity(${item.id}, parseInt(this.value))">
+                                    <button class="quantity-btn" onclick="cartManager.updateQuantity(${item.id}, ${item.quantity + 1})">+</button>
+                                    <button class="remove-item" onclick="cartManager.removeItem(${item.id})"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+                        `;
+                        cartItems.appendChild(cartItem);
+                    });
+                }
+
+                // Update checkout button state
+                checkoutBtn.disabled = this.items.length === 0;
+            }
+
+            showNotification(message) {
+                const notification = document.createElement('div');
+                notification.className = 'notification';
+                notification.innerHTML = `
+                    <i class="fas fa-check-circle"></i> ${message}
+                `;
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.remove();
+                }, 3000);
+            }
+        }
+
+        // M-Pesa Payment Handler
+        class MpesaPayment {
+            constructor() {
+                this.apiBaseUrl = '/api/mpesa'; // Your backend API endpoint
+                this.isProcessing = false;
+            }
+
+            async initiatePayment(phoneNumber, amount, orderId) {
+                try {
+                    this.showPaymentStatus('loading', 'Initiating M-Pesa payment...');
+
+                    // Simulate API call (replace with actual API call in production)
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                    
+                    // For demo purposes, we'll simulate a successful payment
+                    const success = Math.random() > 0.3; // 70% success rate for demo
+                    
+                    if (success) {
+                        this.showPaymentStatus('success', 'Payment completed successfully!');
+                        cartManager.clearCart();
+                        setTimeout(() => {
+                            this.closeModal();
+                            this.showNotification('Thank you for your purchase! Your order is being processed.');
+                        }, 3000);
+                    } else {
+                        throw new Error('Payment failed. Please try again.');
+                    }
+                } catch (error) {
+                    console.error('Payment initiation error:', error);
+                    this.showPaymentStatus('error', error.message || 'Payment failed. Please try again.');
+                }
+            }
+
+            showPaymentStatus(status, message) {
+                const paymentForm = document.getElementById('paymentForm');
+                const paymentStatus = document.getElementById('paymentStatus');
+                const payNowBtn = document.getElementById('payNowBtn');
+
+                paymentForm.style.display = 'none';
+                paymentStatus.style.display = 'block';
+                paymentStatus.innerHTML = '';
+
+                let icon, title, colorClass;
+
+                switch (status) {
+                    case 'loading':
+                        icon = 'fas fa-spinner';
+                        title = 'Processing...';
+                        colorClass = 'status-loading';
+                        break;
+                    case 'processing':
+                        icon = 'fas fa-hourglass-half';
+                        title = 'Processing Payment';
+                        colorClass = 'status-loading';
+                        break;
+                    case 'success':
+                        icon = 'fas fa-check-circle';
+                        title = 'Payment Successful';
+                        colorClass = 'status-success';
+                        break;
+                    case 'error':
+                        icon = 'fas fa-times-circle';
+                        title = 'Payment Failed';
+                        colorClass = 'status-error';
+                        break;
+                }
+
+                paymentStatus.innerHTML = `
+                    <div class="payment-status">
+                        <div class="status-icon ${colorClass}">
+                            <i class="${icon}"></i>
+                        </div>
+                        <h3 class="status-title">${title}</h3>
+                        <p class="status-message">${message}</p>
+                        ${status === 'error' ? '<button class="btn-pay" onclick="mpesaPayment.retryPayment()">Try Again</button>' : ''}
+                    </div>
+                `;
+
+                this.isProcessing = status === 'loading' || status === 'processing';
+                payNowBtn.disabled = this.isProcessing;
+            }
+
+            retryPayment() {
+                document.getElementById('paymentForm').style.display = 'block';
+                document.getElementById('paymentStatus').style.display = 'none';
+            }
+
+            closeModal() {
+                document.getElementById('mpesaModal').classList.remove('active');
+                this.isProcessing = false;
+            }
+
+            validatePhoneNumber(phone) {
+                const cleaned = phone.replace(/\D/g, '');
+                return cleaned.length === 9 && /^[17]\d{8}$/.test(cleaned);
+            }
+
+            showNotification(message) {
+                const notification = document.createElement('div');
+                notification.className = 'notification';
+                notification.innerHTML = `
+                    <i class="fas fa-info-circle"></i> ${message}
+                `;
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.remove();
+                }, 3000);
+            }
+        }
+
+        // Initialize cart and payment handlers
+        const cartManager = new CartManager();
+        const mpesaPayment = new MpesaPayment();
+
+        // Sample product data
+        const products = {
+            1: { id: 1, name: 'Nike ZoomX Vaporfly', price: 12500, image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80' },
+            2: { id: 2, name: 'Kenyan Flag Running Kit', price: 3200, image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80' },
+            3: { id: 3, name: 'Adjustable Dumbbell Set', price: 8900, image: 'https://images.unsplash.com/photo-1534367507877-0edd93bd013b?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80' },
+            4: { id: 4, name: 'Garmin Forerunner 55', price: 25000, image: 'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80' },
+            5: { id: 5, name: 'Adidas Adizero Adios', price: 9800, image: 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80' },
+            6: { id: 6, name: '2XU Compression Tights', price: 6500, image: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80' }
+        };
+
+        // Add to cart function
+        function addToCart(productId) {
+            const product = products[productId];
+            if (product) {
+                cartManager.addItem(product);
+            }
+        }
+
+        // Cart functionality
+        const cartIcon = document.getElementById('cartIcon');
+        const cartSidebar = document.getElementById('cartSidebar');
+        const closeCart = document.getElementById('closeCart');
+        const overlay = document.getElementById('overlay');
+
+        cartIcon.addEventListener('click', () => {
+            cartSidebar.classList.add('active');
+            overlay.classList.add('active');
+        });
+
+        closeCart.addEventListener('click', () => {
+            cartSidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        overlay.addEventListener('click', () => {
+            cartSidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        // Checkout functionality
+        document.getElementById('checkoutBtn').addEventListener('click', () => {
+            if (cartManager.items.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+
+            document.getElementById('mpesaModal').classList.add('active');
+        });
+
+        // M-Pesa payment form submission
+        document.getElementById('mpesaPaymentForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            const termsAgreed = document.getElementById('termsAgreement').checked;
+
+            if (!mpesaPayment.validatePhoneNumber(phoneNumber)) {
+                alert('Please enter a valid M-Pesa phone number (e.g., 712345678)');
+                return;
+            }
+
+            if (!termsAgreed) {
+                alert('Please agree to the terms and conditions');
+                return;
+            }
+
+            const amount = cartManager.getTotal();
+            const orderId = 'KA' + Date.now(); // Generate unique order ID
+
+            await mpesaPayment.initiatePayment(phoneNumber, amount, orderId);
+        });
+
+        // Modal close handlers
+        document.getElementById('closeMpesaModal').addEventListener('click', () => {
+            mpesaPayment.closeModal();
+        });
+
+        document.getElementById('cancelPayment').addEventListener('click', () => {
+            mpesaPayment.closeModal();
+        });
+
+        // Phone number formatting
+        document.getElementById('phoneNumber').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 0) {
+                value = value.match(/.{1,3}/g).join(' ');
+            }
+            e.target.value = value;
+        });
+
+        // Close modal when clicking outside
+        document.getElementById('mpesaModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('mpesaModal')) {
+                mpesaPayment.closeModal();
+            }
+        });
+
+        // Product filtering
+        function filterProducts(category) {
+            const products = document.querySelectorAll('.product-card');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            
+            // Update active filter button
+            filterButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.toLowerCase().includes(category) || (category === 'all' && btn.textContent === 'All Products')) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Show/hide products based on category
+            products.forEach(product => {
+                if (category === 'all' || product.getAttribute('data-category') === category) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+
+        // Search functionality
+        function searchProducts() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const products = document.querySelectorAll('.product-card');
+            
+            products.forEach(product => {
+                const title = product.querySelector('.product-title').textContent.toLowerCase();
+                const description = product.querySelector('.product-description').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+
+        // Wishlist functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const wishlistButtons = document.querySelectorAll('.wishlist');
+            wishlistButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const icon = this.querySelector('i');
+                    if (icon.classList.contains('far')) {
+                        icon.classList.remove('far');
+                        icon.classList.add('fas');
+                        this.style.color = 'var(--accent)';
+                        this.style.borderColor = 'var(--accent)';
+                        cartManager.showNotification('Added to wishlist!');
+                    } else {
+                        icon.classList.remove('fas');
+                        icon.classList.add('far');
+                        this.style.color = '';
+                        this.style.borderColor = '#ddd';
+                        cartManager.showNotification('Removed from wishlist!');
+                    }
+                });
+            });
+        });
+
+        
+        // Initialize with sample items for demo
+        document.addEventListener('DOMContentLoaded', function() {
+            addSampleItems();
+        });
+    </script>
+</body>
+</html>

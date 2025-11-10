@@ -1,0 +1,18 @@
+{
+  "database": {
+    "host": "localhost",
+    "user": "your_db_user",
+    "password": "your_db_password",
+    "database": "kenyan_athletes"
+  },
+  "server": {
+    "port": 3000
+  },
+  "jwt": {
+    "secret": "your_jwt_secret",
+    "expiresIn": "1h"
+  },
+  "logging": {
+    "level": "info"
+  }
+}
