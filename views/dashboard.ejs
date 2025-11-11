@@ -1,256 +1,660 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Dashboard • KenyanAthletes</title>
-  <style>
-    :root{
-      --bg:#f5f5dc; /* Light grey-brown background */
-      --card:#ffffff;
-      --accent:#8b0000; /* Dark red accent */
-      --muted:#696969; /* Grey-brown muted text */
-      --glass: rgba(139,0,0,0.06); /* Dark red glass effect */
-      --radius:14px;
-      --shadow: 0 10px 30px rgba(139,0,0,0.06); /* Dark red shadow */
-      --secondary:#a0522d; /* Sienna for secondary elements */
-      --highlight:#daa520; /* Goldenrod for highlights */
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kenyan Athletes Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --kenya-green: #006600;
+            --kenya-red: #FF0000;
+            --kenya-black: #000;
+            --kenya-gold: #FFD700;
+            --kenya-dark: #1a2a6c;
+            --kenya-light: #fdbb2d;
+            --transition: all 0.3s ease;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text: #333333;
+            --muted: #6c757d;
+        }
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      background: linear-gradient(180deg,#f8fbfb 0%,var(--bg) 60%);
-      color:#0b2b23;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      padding:2rem;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .container{max-width:1200px;margin:0 auto}
-    .welcome-header{
-      background: linear-gradient(135deg,var(--accent),var(--secondary));
-      color:white;
-      padding:2rem;
-      border-radius:var(--radius);
-      margin-bottom:2rem;
-      box-shadow:var(--shadow);
-    }
-    .welcome-header h1{margin:0;font-size:2rem}
-    .welcome-header p{margin:0.5rem 0 0;font-size:1.1rem;opacity:0.9}
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
 
-    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;margin-bottom:2rem}
-    .stat-card{background:var(--card);padding:1.5rem;border-radius:var(--radius);box-shadow:var(--shadow);text-align:center;border:1px solid rgba(0,0,0,0.04)}
-    .stat-card .number{font-size:3rem;font-weight:800;color:var(--accent);display:block;margin-bottom:0.5rem}
-    .stat-card .label{font-size:1.1rem;color:var(--muted);font-weight:600}
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--kenya-black), var(--kenya-dark));
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
 
-    .dashboard-grid{display:grid;grid-template-columns:2fr 1fr;gap:2rem}
-    .main-content{display:flex;flex-direction:column;gap:2rem}
-    .sidebar{display:flex;flex-direction:column;gap:1.5rem}
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    .section{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;border:1px solid rgba(0,0,0,0.04)}
-    .section-header{background:linear-gradient(90deg,rgba(11,110,79,0.03),transparent);padding:1.25rem;border-bottom:1px solid rgba(0,0,0,0.04)}
-    .section-header h2{margin:0;font-size:1.4rem;color:#042a23}
-    .section-content{padding:1.25rem}
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
 
-    .athlete-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
-    .athlete-card{background:linear-gradient(180deg,#fff,#fcfffb);padding:1rem;border-radius:10px;border:1px solid #eef6f1;text-align:center}
-    .athlete-card .avatar{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:1.5rem;margin:0 auto 0.5rem}
-    .athlete-card .name{font-weight:700;color:#042a23;margin-bottom:0.25rem}
-    .athlete-card .specialty{font-size:0.9rem;color:var(--muted)}
+        .logo-icon {
+            font-size: 2.2rem;
+        }
 
-    .event-list{display:flex;flex-direction:column;gap:0.75rem}
-    .event-item{background:linear-gradient(180deg,#fff,#fcfffb);padding:1rem;border-radius:10px;border:1px solid #eef6f1}
-    .event-item .title{font-weight:700;color:#042a23;margin-bottom:0.25rem}
-    .event-item .date{color:var(--accent);font-size:0.9rem}
+        .logo-text {
+            font-weight: 800;
+        }
 
-    .achievement-list{display:flex;flex-direction:column;gap:0.75rem}
-    .achievement-item{background:linear-gradient(180deg,#fff,#fbfffb);padding:1rem;border-radius:10px;border-left:4px solid #ffd54b}
-    .achievement-item .athlete{font-weight:700;color:#042a23;margin-bottom:0.25rem}
-    .achievement-item .medal{color:#ffd54b;font-size:0.9rem}
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
 
-    .user-profile{background:linear-gradient(180deg,#fff,#fcfffb);padding:1.25rem;border-radius:12px;border:1px solid #eef6f1}
-    .user-profile .avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:2rem;margin:0 auto 1rem}
-    .user-profile .name{font-weight:700;color:#042a23;text-align:center;margin-bottom:0.5rem}
-    .user-profile .role{color:var(--accent);text-align:center;font-size:0.9rem;margin-bottom:1rem}
-    .user-profile .actions{display:flex;flex-direction:column;gap:0.5rem}
-    .user-profile .actions a{text-decoration:none;color:var(--accent);font-weight:600;padding:0.5rem;border-radius:6px;border:1px solid rgba(11,110,79,0.12);text-align:center;transition:all 0.2s}
-    .user-profile .actions a:hover{background:var(--accent);color:white}
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.7rem 1.2rem;
+            border-radius: 8px;
+            position: relative;
+            transition: var(--transition);
+        }
 
-    .quick-links{background:linear-gradient(180deg,#fff,#fcfffb);padding:1.25rem;border-radius:12px;border:1px solid #eef6f1}
-    .quick-links h3{margin:0 0 1rem;font-size:1.1rem;color:#042a23}
-    .quick-links a{display:block;color:var(--accent);text-decoration:none;font-weight:600;margin-bottom:0.75rem;padding:0.5rem;border-radius:6px;border:1px solid rgba(11,110,79,0.12);text-align:center;transition:all 0.2s}
-    .quick-links a:hover{background:var(--accent);color:white}
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--kenya-gold);
+            transition: all .3s;
+            transform: translateX(-50%);
+        }
 
-    @media (max-width:768px){
-      .dashboard-grid{grid-template-columns:1fr}
-      .stats-grid{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
-      body{padding:1rem}
-      .welcome-header{padding:1.5rem}
-      .welcome-header h1{font-size:1.5rem}
-    }
-  </style>
+        .nav-links a:hover::after {
+            width: 80%;
+        }
+
+        .nav-links a:hover {
+            color: var(--kenya-gold);
+        }
+
+        .nav-links a.active {
+            color: var(--kenya-gold);
+        }
+
+        .nav-links a.active::after {
+            width: 80%;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--kenya-red), var(--kenya-gold));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: all .3s;
+            font-size: 0.9rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--kenya-gold);
+            color: var(--kenya-gold);
+        }
+
+        .btn-outline:hover {
+            background: var(--kenya-gold);
+            color: var(--kenya-black);
+            transform: translateY(-2px);
+        }
+
+        /* Dashboard Layout */
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: 100vh;
+            margin-top: 70px;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            background: linear-gradient(135deg, var(--kenya-dark), var(--kenya-black));
+            color: white;
+            padding: 2rem 1.5rem;
+            position: fixed;
+            height: calc(100vh - 70px);
+            width: 250px;
+            top: 70px;
+            overflow-y: auto;
+            box-shadow: 4px 0 20px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--kenya-gold);
+        }
+
+        .nav-link.active {
+            background: rgba(255, 215, 0, 0.2);
+            color: var(--kenya-gold);
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            margin-left: 250px;
+            padding: 2rem;
+        }
+
+        .dashboard-header {
+            margin-bottom: 2rem;
+        }
+
+        .welcome-section {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.8);
+        }
+
+        .welcome-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, var(--kenya-red), var(--kenya-gold));
+        }
+
+        .welcome-section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--kenya-black);
+            font-weight: 800;
+        }
+
+        .welcome-section p {
+            font-size: 1.2rem;
+            color: var(--muted);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 2rem 1.5rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, var(--kenya-red), var(--kenya-gold));
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--kenya-dark);
+            margin-bottom: 0.5rem;
+            font-family: 'Arial Black', sans-serif;
+        }
+
+        .stat-label {
+            color: var(--muted);
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .recent-section {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .recent-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, var(--kenya-red), var(--kenya-gold));
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-header h2 {
+            font-size: 1.8rem;
+            color: var(--kenya-black);
+            font-weight: 700;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--kenya-red), #ff6b6b);
+            color: white;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #ff6b6b, var(--kenya-red));
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255,0,0,0.3);
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th,
+        .table td {
+            padding: 1.2rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .table th {
+            font-weight: 600;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+        }
+
+        .table tr:hover {
+            background-color: rgba(0,0,0,0.02);
+        }
+
+        .status-active {
+            background: rgba(0, 128, 0, 0.1);
+            color: green;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-inactive {
+            background: rgba(255, 0, 0, 0.1);
+            color: red;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .stagger-animation > * {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .stagger-animation > *:nth-child(1) { animation-delay: 0.1s; }
+        .stagger-animation > *:nth-child(2) { animation-delay: 0.2s; }
+        .stagger-animation > *:nth-child(3) { animation-delay: 0.3s; }
+        .stagger-animation > *:nth-child(4) { animation-delay: 0.4s; }
+        .stagger-animation > *:nth-child(5) { animation-delay: 0.5s; }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .dashboard-container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .user-menu {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .welcome-section h1 {
+                font-size: 2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Welcome Header -->
-    <div class="welcome-header">
-      <h1>Welcome back, <%= user ? user.firstName : 'User' %>! 👋</h1>
-      <p>Here's what's happening in the Kenyan Athletics community today.</p>
+    <!-- Header -->
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">🏃‍♂️</span>
+                <span class="logo-text">Kenyan Athletes Platform</span>
+            </div>
+
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="/dashboard" class="active">Dashboard</a></li>
+                    <li><a href="/views/athlete.html">Athletes</a></li>
+                    <li><a href="/views/events.html">Events</a></li>
+                    <li><a href="/views/achievements.html">Achievements</a></li>
+                    <li><a href="/views/professionals.html">Professionals</a></li>
+                </ul>
+            </nav>
+
+            <div class="user-menu">
+                <div class="user-info">
+                    <div class="user-avatar"><%= user.firstName.charAt(0) %><%= user.lastName.charAt(0) %></div>
+                    <span><%= user.firstName %> <%= user.lastName %></span>
+                </div>
+                <a href="/logout" class="btn btn-outline">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <span>🏃‍♂️ Kenyan Athletes</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="/dashboard" class="nav-link active">
+                        <i class="fas fa-chart-line"></i> Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/views/athlete.html" class="nav-link">
+                        <i class="fas fa-running"></i> Athletes
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/views/events.html" class="nav-link">
+                        <i class="fas fa-calendar-alt"></i> Events
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/views/achievements.html" class="nav-link">
+                        <i class="fas fa-trophy"></i> Achievements
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/profile" class="nav-link">
+                        <i class="fas fa-user"></i> Profile
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/logout" class="nav-link">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="dashboard-header">
+                <div class="welcome-section fade-in">
+                    <h1>Welcome, <%= user.firstName %> <%= user.lastName %></h1>
+                    <p>Here's what's happening with Kenyan Athletes today</p>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid stagger-animation">
+                <div class="stat-card">
+                    <div class="stat-number"><%= dashboardData.stats.totalAthletes %></div>
+                    <div class="stat-label">Total Athletes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number"><%= dashboardData.stats.goldMedals %></div>
+                    <div class="stat-label">Gold Medals</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number"><%= dashboardData.stats.upcomingEvents %></div>
+                    <div class="stat-label">Upcoming Events</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number"><%= dashboardData.stats.legendsCount %></div>
+                    <div class="stat-label">Athletes</div>
+                </div>
+            </div>
+
+            <!-- Recent Athletes -->
+            <section class="recent-section fade-in">
+                <div class="section-header">
+                    <h2>Recent Athletes</h2>
+                    <a href="/athletes" class="btn btn-primary">View All</a>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Specialization</th>
+                            <th>County</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (dashboardData.allAthletes && dashboardData.allAthletes.length) { %>
+                            <% dashboardData.allAthletes.slice(0, 5).forEach(athlete => { %>
+                                <tr>
+                                    <td><%= athlete.firstName %> <%= athlete.lastName %></td>
+                                    <td><%= athlete.specialization || 'N/A' %></td>
+                                    <td><%= athlete.county || 'N/A' %></td>
+                                    <td>
+                                        <% if (athlete.is_active) { %>
+                                            <span class="status-active">Active</span>
+                                        <% } else { %>
+                                            <span class="status-inactive">Inactive</span>
+                                        <% } %>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        <% } else { %>
+                            <tr>
+                                <td colspan="4">No athletes found</td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </section>
+        </main>
     </div>
 
-    <!-- Platform Statistics -->
-    <div class="stats-grid">
-      <div class="stat-card">
-        <span class="number"><%= dashboardData && dashboardData.stats ? dashboardData.stats.totalAthletes : 0 %></span>
-        <span class="label">Total Athletes</span>
-      </div>
-      <div class="stat-card">
-        <span class="number"><%= dashboardData && dashboardData.stats ? dashboardData.stats.goldMedals : 0 %></span>
-        <span class="label">Gold Medals</span>
-      </div>
-      <div class="stat-card">
-        <span class="number"><%= dashboardData && dashboardData.stats ? dashboardData.stats.upcomingEvents : 0 %></span>
-        <span class="label">Upcoming Events</span>
-      </div>
-      <div class="stat-card">
-        <span class="number"><%= dashboardData && dashboardData.stats ? dashboardData.stats.legendsCount : 0 %></span>
-        <span class="label">Athletics Legends</span>
-      </div>
-    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add animations to elements when they come into view
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                    }
+                });
+            }, { threshold: 0.1 });
 
-    <!-- Main Dashboard Content -->
-    <div class="dashboard-grid">
-      <div class="main-content">
-        <!-- Recent Athletes -->
-        <div class="section">
-          <div class="section-header">
-            <h2>🏃 Recent Athletes</h2>
-          </div>
-          <div class="section-content">
-            <div class="athlete-grid">
-              <% if (dashboardData && dashboardData.allAthletes && dashboardData.allAthletes.length > 0) { %>
-                <% dashboardData.allAthletes.slice(0, 6).forEach(athlete => { %>
-                  <div class="athlete-card">
-                    <div class="avatar"><%= athlete.first_name ? athlete.first_name.charAt(0).toUpperCase() : 'A' %><%= athlete.last_name ? athlete.last_name.charAt(0).toUpperCase() : '' %></div>
-                    <div class="name"><%= athlete.first_name %> <%= athlete.last_name %></div>
-                    <div class="specialty"><%= athlete.specialization || 'Athlete' %></div>
-                  </div>
-                <% }) %>
-              <% } else { %>
-                <p style="grid-column:1/-1;text-align:center;color:var(--muted)">No athletes found.</p>
-              <% } %>
-            </div>
-            <div style="text-align:center;margin-top:1rem">
-              <a href="/views/athlete.html" style="color:var(--accent);text-decoration:none;font-weight:600">View All Athletes →</a>
-            </div>
-          </div>
-        </div>
+            // Observe elements for animation
+            const elementsToAnimate = document.querySelectorAll('.welcome-section, .recent-section');
+            elementsToAnimate.forEach(el => observer.observe(el));
 
-        <!-- Upcoming Events -->
-        <div class="section">
-          <div class="section-header">
-            <h2>📅 Upcoming Events</h2>
-          </div>
-          <div class="section-content">
-            <div class="event-list">
-              <% if (dashboardData && dashboardData.allAthletes && dashboardData.allAthletes.length > 0) { %>
-                <!-- Placeholder events - in real app, fetch from events table -->
-                <div class="event-item">
-                  <div class="title">Kenya National Championships</div>
-                  <div class="date">March 15, 2024</div>
-                </div>
-                <div class="event-item">
-                  <div class="title">East African Cross Country</div>
-                  <div class="date">April 2, 2024</div>
-                </div>
-                <div class="event-item">
-                  <div class="title">World Athletics Indoor Tour</div>
-                  <div class="date">April 20, 2024</div>
-                </div>
-              <% } else { %>
-                <p style="text-align:center;color:var(--muted)">No upcoming events.</p>
-              <% } %>
-            </div>
-            <div style="text-align:center;margin-top:1rem">
-              <a href="/views/events.html" style="color:var(--accent);text-decoration:none;font-weight:600">View All Events →</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Recent Achievements -->
-        <div class="section">
-          <div class="section-header">
-            <h2>🏆 Recent Achievements</h2>
-          </div>
-          <div class="section-content">
-            <div class="achievement-list">
-              <% if (dashboardData && dashboardData.allAchievements && dashboardData.allAchievements.length > 0) { %>
-                <% dashboardData.allAchievements.slice(0, 5).forEach(achievement => { %>
-                  <div class="achievement-item">
-                    <div class="athlete"><%= achievement.first_name %> <%= achievement.last_name %></div>
-                    <div class="medal"><%= achievement.medal %> - <%= achievement.event || 'Competition' %> (<%= achievement.year %>)</div>
-                  </div>
-                <% }) %>
-              <% } else { %>
-                <p style="text-align:center;color:var(--muted)">No recent achievements.</p>
-              <% } %>
-            </div>
-            <div style="text-align:center;margin-top:1rem">
-              <a href="/views/achivements.html" style="color:var(--accent);text-decoration:none;font-weight:600">View All Achievements →</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Sidebar -->
-      <div class="sidebar">
-        <!-- User Profile -->
-        <div class="user-profile">
-          <div class="avatar">
-            <% if (user && user.profile_image) { %>
-              <img src="/public/img/Muhammad Ali was not the Greatest.jpg" alt="avatar" style="width:100%;height:100%;border-radius:50%;object-fit:cover">
-            <% } else { %>
-              👤
-            <% } %>
-          </div>
-          <div class="name"><%= user ? user.firstName + ' ' + user.lastName : 'User' %></div>
-          <div class="role"><%= user ? user.role : 'User' %></div>
-          <div class="actions">
-            <a href="/profile">View Profile</a>
-            <a href="/logout">Logout</a>
-          </div>
-        </div>
-
-        <!-- Quick Links -->
-        <div class="quick-links">
-          <h3>Quick Links</h3>
-          <a href="/views/athlete.html">Browse Athletes</a>
-          <a href="/views/events.html">Events</a>
-          <a href="/views/achivements.html">Achievements</a>
-          <a href="/views/ai.html">AI</a>
-          <% if (user && user.role === 'athlete') { %>
-            <a href="/views/index.html">Home</a>
-          <% } %>
-        </div>
-
-        <!-- Athlete Profile Section (if user is athlete) -->
-        <% if (user && user.role === 'athlete' && dashboardData && dashboardData.athleteProfile) { %>
-          <div class="user-profile">
-            <h3 style="margin:0 0 1rem;color:#042a23">My Athlete Profile</h3>
-            <div style="font-size:0.9rem;color:var(--muted);margin-bottom:1rem">
-              <strong>Specialization:</strong> <%= dashboardData.athleteProfile.specialization || 'Not set' %><br>
-              <strong>Status:</strong> <%= dashboardData.athleteProfile.is_legend ? 'Legend' : 'Active' %>
-            </div>
-            <div class="actions">
-              <a href="/athlete/<%= dashboardData.athleteProfile.id %>">View Public Profile</a>
-              
-            </div>
-          </div>
-        <% } %>
-      </div>
-    </div>
-  </div>
+            // Header background on scroll
+            window.addEventListener('scroll', () => {
+                const header = document.querySelector('header');
+                if (window.scrollY > 50) {
+                    header.style.background = 'linear-gradient(135deg, rgba(0,0,0,0.95), rgba(26,42,108,0.95))';
+                    header.style.backdropFilter = 'blur(10px)';
+                } else {
+                    header.style.background = 'linear-gradient(135deg, var(--kenya-black), var(--kenya-dark))';
+                    header.style.backdropFilter = 'blur(10px)';
+                }
+            });
+        });
+    </script>
 </body>
+</html>
